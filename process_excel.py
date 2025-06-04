@@ -3,74 +3,95 @@ from openai import OpenAI
 import os
 from pathlib import Path
 import json
-import re
 
 # Initialize OpenAI client
 client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
-def extract_title_info(df):
-    """Extract PRODUCT_TYPE and VALUATION_DATE from the title row."""
-    # Assume the title is in the first cell of the first row
-    title_row = str(df.iloc[0, 0])
-    product_type = re.match(r"^(\w+)", title_row).group(1)
-    date_match = re.search(r"as of (\d{2}/\d{2}/\d{4})", title_row)
-    if date_match:
-        date_str = date_match.group(1)
-        valuation_date = pd.to_datetime(date_str, format="%m/%d/%Y").strftime("%Y%m%d")
-    else:
-        valuation_date = ""
-    return product_type, valuation_date
-
 def read_excel_file(input_path):
     """Read the Excel file and return a pandas DataFrame."""
     try:
-        df = pd.read_excel(input_path, header=None)
+        df = pd.read_excel(input_path)
         return df
     except Exception as e:
         print(f"Error reading Excel file: {e}")
         return None
 
-def process_data_with_llm(df, product_type, valuation_date):
+def process_data_with_llm(df):
     """Process the data using OpenAI's API to transform it into the desired format."""
-    # Convert DataFrame to string representation (skip the title row)
-    data_str = df.iloc[1:].to_string(index=False, header=False)
+    # Convert DataFrame to string representation
+    data_str = df.to_string()
     
     # Create a prompt for the LLM
-    prompt = f"""
-Given the following Excel data:
+    prompt = f"""Given the following Excel data:
 {data_str}
 
-PRODUCT_TYPE for this data is: {product_type}
-VALUATION_DATE for this data is: {valuation_date}
+TASK: Transform this DBIB Total Dynamic Hedge P&L Excel data into a structured format.
 
-TASK: Extract a table with these columns:
-- VALUATION_DATE (use the provided value above)
-- PRODUCT_TYPE (use the provided value above)
-- RISK_TYPE (the section name, e.g., 'Credit', 'Equity', etc.)
-- GREEK_TYPE (the row label under the section, e.g., 'ILP_Update')
-- RIDER_VALUE (the value from the 'Liability' column for that row)
-- ASSET_VALUE (the value from the 'Asset' column for that row)
+OUTPUT FORMAT:
+Return a JSON array of objects with these columns:
+- VALUATION_DATE (YYYYMMDD format)
+- PRODUCT_TYPE (e.g., "DBIB")
+- RISK_TYPE (categorized risk)
+- GREEK_TYPE (specific risk measure)
+- RIDER_VALUE (from Liability column)
+- ASSET_VALUE (from Asset column)
 
-RULES:
-- For rows under a section (e.g., under 'Total Credit'), RISK_TYPE is the section name, GREEK_TYPE is the row label (e.g., 'ILP_Update').
-- Only use a row label as RISK_TYPE if it is a standalone bolded row not under any section.
-- Extract RIDER_VALUE and ASSET_VALUE directly from the data. Do not make up values.
-- Output a JSON array of objects, one per row, with the above columns.
+DATA EXTRACTION RULES:
 
-EXAMPLE OUTPUT:
+1. Title Row Processing:
+   - Extract PRODUCT_TYPE from first word (e.g., "DBIB")
+   - Extract VALUATION_DATE from "as of MM/DD/YYYY" and convert to YYYYMMDD
+
+2. Section Processing:
+   Main sections to identify:
+   - Total Equity
+   - Total Interest Rate
+   - Total Credit
+   - Standalone sections (e.g., Fund Basis & Fund Mapping, Passage of Time)
+
+3. Risk Type Classification:
+   For rows under sections:
+   - RISK_TYPE = section name (e.g., "Equity", "Interest_Rate", "Credit")
+   - GREEK_TYPE = specific measure (e.g., "Delta", "Rho", "Gamma_Residual")
+   
+   For standalone rows:
+   - RISK_TYPE = full row name (e.g., "FundBasis_Mapping", "Passage_Of_Time")
+   - GREEK_TYPE = null or empty
+
+4. Text Normalization Rules:
+   - Replace spaces with underscores
+   - Replace & with underscore
+   - Remove duplicate underscores
+   - Maintain proper capitalization
+   - Example: "Interest Rate & Basis" → "Interest_Rate_Basis"
+
+5. Value Extraction:
+   - RIDER_VALUE = value from Liability column
+   - ASSET_VALUE = value from Asset column
+   - Skip Daily Net, QTD Net, YTD Net columns
+   - Skip summary/total rows
+
+EXAMPLE OUTPUT FORMAT:
 [
-  {{
-    "VALUATION_DATE": "20240801",
-    "PRODUCT_TYPE": "DBIB",
-    "RISK_TYPE": "Credit",
-    "GREEK_TYPE": "ILP_Update",
-    "RIDER_VALUE": 123.45,
-    "ASSET_VALUE": 67.89
-  }}
+    {{
+        "VALUATION_DATE": "20240801",
+        "PRODUCT_TYPE": "DBIB",
+        "RISK_TYPE": "Equity",
+        "GREEK_TYPE": "Delta",
+        "RIDER_VALUE": 123.45,
+        "ASSET_VALUE": 67.89
+    }},
+    {{
+        "VALUATION_DATE": "20240801",
+        "PRODUCT_TYPE": "DBIB",
+        "RISK_TYPE": "Interest_Rate",
+        "GREEK_TYPE": "Rho",
+        "RIDER_VALUE": 234.56,
+        "ASSET_VALUE": 78.90
+    }}
 ]
 
-IMPORTANT: Return ONLY the JSON array, no explanations or additional text.
-"""
+IMPORTANT: Return ONLY the JSON array, no explanations or additional text."""
 
     try:
         # Call OpenAI API
@@ -122,12 +143,8 @@ def main():
     if df is None:
         return
     
-    # Extract PRODUCT_TYPE and VALUATION_DATE
-    product_type, valuation_date = extract_title_info(df)
-    print(f"Extracted PRODUCT_TYPE: {product_type}, VALUATION_DATE: {valuation_date}")
-    
     # Process the data using LLM
-    processed_df = process_data_with_llm(df, product_type, valuation_date)
+    processed_df = process_data_with_llm(df)
     if processed_df is None:
         return
     
