@@ -16,6 +16,15 @@ def read_excel_file(input_path):
         print(f"Error reading Excel file: {e}")
         return None
 
+def read_excel_sheets(input_path, sheet_names):
+    """Read specified sheets from the Excel file and return a dict of DataFrames."""
+    try:
+        dfs = pd.read_excel(input_path, sheet_name=sheet_names)
+        return dfs
+    except Exception as e:
+        print(f"Error reading Excel file: {e}")
+        return None
+
 def process_data_with_llm(df):
     """Process the data using OpenAI's API to transform it into the desired format."""
     # Convert DataFrame to string representation
@@ -134,23 +143,36 @@ def save_to_excel(df, output_path):
 def main():
     # Define input and output paths
     input_path = "/Users/lutianyi/Desktop/excel AI/input/SampleInput20240801.xlsx"
-    output_path = "/Users/lutianyi/Desktop/excel AI/output/sampleoutput20240801_test.xlsx"
+    output_path = "/Users/lutianyi/Desktop/excel AI/output/sampleoutput20240801_combined2.xlsx"
     
     # Create output directory if it doesn't exist
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     
-    # Read the input Excel file
-    df = read_excel_file(input_path)
-    if df is None:
+    # Read both 'WB' and 'DBIB' sheets
+    sheet_names = ["WB", "DBIB"]
+    dfs = read_excel_sheets(input_path, sheet_names)
+    if dfs is None:
         return
-    
-    # Process the data using LLM
-    processed_df = process_data_with_llm(df)
-    if processed_df is None:
+
+    processed_dfs = []
+    for sheet, df in dfs.items():
+        if df is None or df.empty:
+            print(f"Sheet {sheet} is empty or could not be read.")
+            continue
+        print(f"Processing sheet: {sheet}")
+        processed_df = process_data_with_llm(df)
+        if processed_df is not None:
+            processed_dfs.append(processed_df)
+
+    if not processed_dfs:
+        print("No data processed from any sheet.")
         return
+
+    # Combine all processed DataFrames
+    combined_df = pd.concat(processed_dfs, ignore_index=True)
     
-    # Save the processed data to Excel
-    save_to_excel(processed_df, output_path)
+    # Save the combined processed data to Excel
+    save_to_excel(combined_df, output_path)
 
 if __name__ == "__main__":
     main() 
