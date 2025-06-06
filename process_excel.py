@@ -70,6 +70,7 @@ DATA EXTRACTION RULES:
    - ASSET_VALUE = value from Asset column
    - Skip Daily Net, QTD Net, YTD Net columns
    - Skip summary/total rows
+   - Include all rows with a label, even if the values are zero or missing, except for rows labeled "Total" or section headers.
 
 EXAMPLE OUTPUT FORMAT:
 [
@@ -133,7 +134,7 @@ def save_to_excel(df, output_path):
 def main():
     # Define input and output paths
     input_path = "/Users/lutianyi/Desktop/excel AI/input/SampleInput20240801.xlsx"
-    output_path = "/Users/lutianyi/Desktop/excel AI/output/sampleoutput20240801.xlsx"
+    output_path = "/Users/lutianyi/Desktop/excel AI/output/sampleoutput20240801_test.xlsx"
     
     # Create output directory if it doesn't exist
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
