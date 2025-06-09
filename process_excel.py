@@ -3,6 +3,7 @@ from openai import OpenAI
 import os
 from pathlib import Path
 import json
+import re
 
 # Initialize OpenAI client
 client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
@@ -39,7 +40,7 @@ TASK: Transform this DBIB Total Dynamic Hedge P&L Excel data into a structured f
 OUTPUT FORMAT:
 Return a JSON array of objects with these columns:
 - VALUATION_DATE (YYYYMMDD format)
-- PRODUCT_TYPE (e.g., "DBIB")
+- PRODUCT_TYPE (e.g., \"DBIB\")
 - RISK_TYPE (categorized risk)
 - GREEK_TYPE (specific risk measure)
 - RIDER_VALUE (from Liability column)
@@ -48,8 +49,8 @@ Return a JSON array of objects with these columns:
 DATA EXTRACTION RULES:
 
 1. Title Row Processing:
-   - Extract PRODUCT_TYPE from first word (e.g., "DBIB")
-   - Extract VALUATION_DATE from "as of MM/DD/YYYY" and convert to YYYYMMDD
+   - Extract PRODUCT_TYPE from first word (e.g., \"DBIB\")
+   - Extract VALUATION_DATE from \"as of MM/DD/YYYY\" and convert to YYYYMMDD
 
 2. Section Processing:
    Main sections to identify:
@@ -60,11 +61,11 @@ DATA EXTRACTION RULES:
 
 3. Risk Type Classification:
    For rows under sections:
-   - RISK_TYPE = section name (e.g., "Equity", "Interest_Rate", "Credit")
-   - GREEK_TYPE = specific measure (e.g., "Delta", "Rho", "Gamma_Residual")
+   - RISK_TYPE = section name (e.g., \"Equity\", \"Interest_Rate\", \"Credit\")
+   - GREEK_TYPE = specific measure (e.g., \"Delta\", \"Rho\", \"Gamma_Residual\")
    
    For standalone rows:
-   - RISK_TYPE = full row name (e.g., "FundBasis_Mapping", "Passage_Of_Time")
+   - RISK_TYPE = full row name (e.g., \"FundBasis_Mapping\", \"Passage_Of_Time\")
    - GREEK_TYPE = null or empty
 
 4. Text Normalization Rules:
@@ -72,36 +73,66 @@ DATA EXTRACTION RULES:
    - Replace & with underscore
    - Remove duplicate underscores
    - Maintain proper capitalization
-   - Example: "Interest Rate & Basis" → "Interest_Rate_Basis"
+   - Example: \"Interest Rate & Basis\" → \"Interest_Rate_Basis\"
 
 5. Value Extraction:
    - RIDER_VALUE = value from Liability column
    - ASSET_VALUE = value from Asset column
    - Skip Daily Net, QTD Net, YTD Net columns
    - Skip summary/total rows
-   - Include all rows with a label, even if the values are zero or missing, except for rows labeled "Total" or section headers.
+   - Include all rows with a label, even if the values are zero or missing, except for rows labeled \"Total\" or section headers.
+
+MANDATORY OUTPUT CHECKLIST:
+For each of the following RISK_TYPE and GREEK_TYPE pairs, you MUST output a row, even if the value is missing or zero. If a row is not present in the data, output it with RIDER_VALUE and ASSET_VALUE as 0.
+
+- (\"Interest_Rate\", \"Basis\")
+- (\"Interest_Rate\", \"Rho\")
+- (\"Interest_Rate\", \"Convexity_Residual\")
+- (\"Equity\", \"Delta\")
+- (\"Equity\", \"Gamma_Residual\")
+- (\"Credit\", \"HY_Total\")
+- (\"Credit\", \"AGG_Credit\")
+- (\"Credit\", \"Agg_Risk_Free_Growth\")
+- (\"Credit\", \"ILP_Update\")
+- (\"Fund_Basis_Fund_Mapping\", \"\")
+- (\"Passage_Of_Time\", \"\")
+- (\"Other_Inforce\", \"\")
+- (\"New_Business\", \"\")
+- (\"Cross_Impact_True_up\", \"\")
+
+FLEXIBLE OUTPUT:
+If the data contains additional RISK_TYPE and GREEK_TYPE pairs not listed above, you MUST also include them in the output, using the same format.
+
+DO NOT merge RISK_TYPE and GREEK_TYPE into a single field.
+If a pair above is not found, output it with zeros.
+If a new pair is found in the data, include it as-is.
+
+IMPORTANT:
+- Always output all pairs in the checklist above, even if the values are zero or missing.
+- Also output any additional RISK_TYPE/GREEK_TYPE pairs found in the data.
+- Do not merge RISK_TYPE and GREEK_TYPE into a single field.
+- Return ONLY the JSON array, no explanations or additional text.
 
 EXAMPLE OUTPUT FORMAT:
 [
     {{
-        "VALUATION_DATE": "20240801",
-        "PRODUCT_TYPE": "DBIB",
-        "RISK_TYPE": "Equity",
-        "GREEK_TYPE": "Delta",
-        "RIDER_VALUE": 123.45,
-        "ASSET_VALUE": 67.89
+        \"VALUATION_DATE\": \"20240801\",
+        \"PRODUCT_TYPE\": \"DBIB\",
+        \"RISK_TYPE\": \"Equity\",
+        \"GREEK_TYPE\": \"Delta\",
+        \"RIDER_VALUE\": 123.45,
+        \"ASSET_VALUE\": 67.89
     }},
     {{
-        "VALUATION_DATE": "20240801",
-        "PRODUCT_TYPE": "DBIB",
-        "RISK_TYPE": "Interest_Rate",
-        "GREEK_TYPE": "Rho",
-        "RIDER_VALUE": 234.56,
-        "ASSET_VALUE": 78.90
+        \"VALUATION_DATE\": \"20240801\",
+        \"PRODUCT_TYPE\": \"DBIB\",
+        \"RISK_TYPE\": \"Interest_Rate\",
+        \"GREEK_TYPE\": \"Rho\",
+        \"RIDER_VALUE\": 234.56,
+        \"ASSET_VALUE\": 78.90
     }}
 ]
-
-IMPORTANT: Return ONLY the JSON array, no explanations or additional text."""
+"""
 
     try:
         # Call OpenAI API
@@ -118,15 +149,22 @@ IMPORTANT: Return ONLY the JSON array, no explanations or additional text."""
         print("\nLLM Response:")
         print(transformed_data)
         
+        # Robust JSON extraction: extract only the JSON array
+        json_match = re.search(r'(\[.*?\])', transformed_data, re.DOTALL)
+        if json_match:
+            json_str = json_match.group(1)
+        else:
+            print("No JSON array found in LLM response.")
+            return None
         # Parse the JSON response
         try:
-            data = json.loads(transformed_data)
+            data = json.loads(json_str)
             if not isinstance(data, list):
                 raise ValueError("LLM response is not a JSON array")
             return pd.DataFrame(data)
         except json.JSONDecodeError as e:
             print(f"\nError parsing JSON response: {e}")
-            print("Raw response:", transformed_data)
+            print("Raw response:", json_str)
             return None
     except Exception as e:
         print(f"Error processing data with LLM: {e}")
