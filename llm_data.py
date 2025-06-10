@@ -10,7 +10,10 @@ from datetime import datetime
 class LLMData:
     def __init__(self, file_path):
         self.file_path = file_path
-        self.df = pd.read_excel(file_path)
+        self.df = None
+
+    def load_sheet(self, sheet_name):
+        self.df = pd.read_excel(self.file_path, sheet_name=sheet_name)
 
     def wb_dbib_clean_df(self):
         df_clean = self.df.dropna(how="all")
@@ -72,40 +75,52 @@ class LLMData:
         df_struct = df_struct[keep_cols]
         return df_struct
 
-if __name__ == "__main__":
-    file_path = "/Users/lutianyi/Desktop/excel AI/input/AVsample.xlsx"
-    sheet_names = ["WB", "DBIB"]
-    combined_structured = []
+    def get_cleaned_sheet(self, sheet_name):
+        self.load_sheet(sheet_name)
+        if sheet_name in ["WB", "DBIB"]:
+            df_clean = self.wb_dbib_clean_df()
+            product_type, valuation_date = self.wb_dbib_extract_product_and_date_from_anywhere(df_clean)
+            df_struct = self.wb_dbib_structure_final_df(df_clean, valuation_date, product_type)
+            return df_struct
+        elif sheet_name == "AV":
+            return self.av_clean_df()
+        else:
+            raise ValueError(f"Unknown sheet: {sheet_name}")
 
-    for sheet in sheet_names:
-        if sheet == "WB" or sheet == "DBIB":
-            try:
-                llm_data = LLMData(file_path)
-                # Read only the specific sheet
-                llm_data.df = pd.read_excel(file_path, sheet_name=sheet)
-                df_clean = llm_data.wb_dbib_clean_df()
-                product_type, valuation_date = llm_data.wb_dbib_extract_product_and_date_from_anywhere(df_clean)
-                df_struct = llm_data.wb_dbib_structure_final_df(df_clean, valuation_date, product_type)
-                combined_structured.append(df_struct)
-            except Exception as e:
-                print(f"Skipping sheet {sheet}: {e}")
-        elif sheet == "AV":
-            try:
-                llm_data = LLMData(file_path)
-                llm_data.df = pd.read_excel(file_path, sheet_name=sheet)
-                df_clean = llm_data.av_clean_df()
-                print(df_clean)
-            except Exception as e:
-                print(f"Skipping sheet {sheet}: {e}")
+# if __name__ == "__main__":
+#     file_path = "/Users/lutianyi/Desktop/excel AI/input/AVsample.xlsx"
+#     sheet_names = ["WB", "DBIB"]
+#     combined_structured = []
+
+#     for sheet in sheet_names:
+#         if sheet == "WB" or sheet == "DBIB":
+#             try:
+#                 llm_data = LLMData(file_path)
+#                 # Read only the specific sheet
+#                 llm_data.df = pd.read_excel(file_path, sheet_name=sheet)
+#                 df_clean = llm_data.wb_dbib_clean_df()
+#                 product_type, valuation_date = llm_data.wb_dbib_extract_product_and_date_from_anywhere(df_clean)
+#                 df_struct = llm_data.wb_dbib_structure_final_df(df_clean, valuation_date, product_type)
+#                 combined_structured.append(df_struct)
+#             except Exception as e:
+#                 print(f"Skipping sheet {sheet}: {e}")
+#         elif sheet == "AV":
+#             try:
+#                 llm_data = LLMData(file_path)
+#                 llm_data.df = pd.read_excel(file_path, sheet_name=sheet)
+#                 df_clean = llm_data.av_clean_df()
+#                 print(df_clean)
+#             except Exception as e:
+#                 print(f"Skipping sheet {sheet}: {e}")
 
 
-    if combined_structured:
-        combined_df = pd.concat(combined_structured, ignore_index=True)
-        print(combined_df)
-        combined_df.to_csv("output/combined_output.csv", index=False)
-        print("Combined DataFrame saved to output/combined_output.csv")
-    else:
-        print("No valid sheets processed.")
+#     if combined_structured:
+#         combined_df = pd.concat(combined_structured, ignore_index=True)
+#         print(combined_df)
+#         combined_df.to_csv("output/combined_output.csv", index=False)
+#         print("Combined DataFrame saved to output/combined_output.csv")
+#     else:
+#         print("No valid sheets processed.")
  
 
     
