@@ -42,4 +42,4 @@ Thumbs.db
 
 # Project specific
 input/*.xlsx
-output/*.xlsx 
+output/*.xlsx secrets.toml
