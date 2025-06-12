@@ -1,18 +1,23 @@
+import toml
 import re
 import json
 import pandas as pd
 from openai import OpenAI
-import os
 from prompt import get_llm_prompt
 
-client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+# Load secrets from secrets.toml
+config = toml.load("secrets.toml")
+api_key = config["openai"]["api_key"]
+model = config["openai"]["model"]
+
+client = OpenAI(api_key=api_key)
 
 def process_with_llm(df):
     data_str = df.to_string()
     prompt = get_llm_prompt(data_str)
     try:
         response = client.chat.completions.create(
-            model="gpt-4",
+            model=model,
             messages=[
                 {"role": "system", "content": "You are a data analysis expert that helps transform and organize Excel data. Always return valid JSON arrays."},
                 {"role": "user", "content": prompt}

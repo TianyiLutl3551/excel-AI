@@ -1,5 +1,5 @@
 from llm_data import LLMData
-from llm_API import process_with_llm
+from llm_api import process_with_llm
 import os
 import pandas as pd
 
@@ -30,7 +30,7 @@ class LLMOrchestrator:
             print("No LLM results to save.")
 
 if __name__ == "__main__":
-    file_path = "/Users/lutianyi/Desktop/excel AI/input/AVsample.xlsx"
+    file_path = "/Users/lutianyi/Desktop/excel AI/input/SampleInput20240802.xlsx"
     sheet_names = ["WB", "DBIB"]
     orchestrator = LLMOrchestrator(file_path)
     orchestrator.process_sheets(sheet_names) 
