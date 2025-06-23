@@ -1,7 +1,7 @@
 import extract_msg
 import os
 import pytesseract
-from PIL import Image
+from PIL import Image, ImageEnhance, ImageFilter
 import io
 import base64
 import toml
@@ -9,17 +9,96 @@ from openai import OpenAI
 import pandas as pd
 from datetime import datetime
 import json
+from bs4 import BeautifulSoup
+import re
 
 # --- Load secrets and initialize OpenAI client ---
 config = toml.load("secrets.toml")
 api_key = config["openai"]["api_key"]
 client = OpenAI(api_key=api_key)
 
-msg_path = r"/Users/lutianyi/Desktop/excel AI/input/FW_ Daily Hedging P&L Summary for DBIB 2025_06_13.msg"
+def preprocess_image_for_vision_api(image_data):
+    """
+    Preprocess image using PIL for better Vision API results:
+    1. Grayscale conversion
+    2. Binarization (threshold)
+    3. Resize (scale up for small text)
+    """
+    # Open the image from bytes
+    img = Image.open(io.BytesIO(image_data))
+    
+    # 1. Grayscale conversion
+    gray = img.convert('L')
+    
+    # 2. Binarization (threshold)
+    threshold = 180
+    binary = gray.point(lambda x: 0 if x < threshold else 255, '1')
+    
+    # 3. Resize (scale up for small text)
+    width, height = binary.size
+    resized = binary.resize((width * 2, height * 2), Image.Resampling.LANCZOS)
+    
+    # 4. Convert back to grayscale for encoding
+    resized_gray = resized.convert('L')
+    
+    # 5. Encode the processed image to PNG in memory
+    buffer = io.BytesIO()
+    resized_gray.save(buffer, format='PNG')
+    image_bytes = buffer.getvalue()
+    
+    return image_bytes
+
+def extract_highlights_from_html(html):
+    soup = BeautifulSoup(html, 'html.parser')
+    text = soup.get_text(separator='\n')
+    # Find all lines containing 'highlights' (case-insensitive)
+    lines = text.splitlines()
+    highlights_sections = []
+    i = 0
+    while i < len(lines):
+        if re.search(r'highlights', lines[i], re.IGNORECASE):
+            section = [lines[i].strip()]
+            i += 1
+            # Collect lines until next heading or empty line or end
+            while i < len(lines):
+                if (re.match(r'^[A-Z][A-Za-z0-9 &/:-]{2,}$', lines[i].strip()) and not re.search(r'highlights', lines[i], re.IGNORECASE)) or lines[i].strip() == '':
+                    break
+                section.append(lines[i].strip())
+                i += 1
+            highlights_sections.append('\n'.join(section))
+        else:
+            i += 1
+    return highlights_sections
+
+msg_path = r"/Users/lutianyi/Desktop/excel AI/input/FW_ Please review_ Daily Hedging P&L Summary for WB 2024_05_01.msg"
 msg = extract_msg.Message(msg_path)
 
 print("--- Email Analysis ---")
-print(f"Subject: {msg.subject}\n")
+print(f"Subject: {msg.subject}")
+print(f"From: {msg.sender}")
+print(f"To: {msg.to}")
+print(f"Date: {msg.date}")
+print("\n--- Message Body ---")
+if msg.body:
+    print(msg.body)
+elif hasattr(msg, 'htmlBody') and msg.htmlBody:
+    print("[HTML Body]")
+    highlights = extract_highlights_from_html(msg.htmlBody)
+    if highlights:
+        print("\n--- Extracted Highlights Section(s) ---\n")
+        for section in highlights:
+            print(section)
+            print("\n" + "-"*40 + "\n")
+    else:
+        print("No highlights section found.")
+    # Optionally, print the whole HTML as text for debug:
+    # print(BeautifulSoup(msg.htmlBody, 'html.parser').get_text())
+elif hasattr(msg, 'rtfBody') and msg.rtfBody:
+    print("[RTF Body]")
+    print(msg.rtfBody)
+else:
+    print("No message body found.")
+print("\n" + "="*50 + "\n")
 
 if not msg.attachments:
     print("No attachments found.")
@@ -57,10 +136,13 @@ else:
     if target_image_data:
         print(f"\n--- Sending {target_image_filename} to Vision API ---")
         
-        # 1. Encode the image data in base64
-        base64_image = base64.b64encode(target_image_data).decode('utf-8')
+        # 1. Preprocess the image
+        preprocessed_image_data = preprocess_image_for_vision_api(target_image_data)
 
-        # 2. Create the prompt for the Vision API
+        # 2. Encode the preprocessed image in base64
+        base64_image = base64.b64encode(preprocessed_image_data).decode('utf-8')
+
+        # 3. Create the prompt for the Vision API
         vision_prompt_text = """
         You are a precise financial table extraction specialist. Extract ONLY the main P&L table from this image.
 
@@ -90,11 +172,11 @@ else:
         DO NOT extract other tables or add columns that don't exist.
         """
         
-        print("Image encoded and prompt created.")
+        print("Image preprocessed and encoded.")
         print("Next step: Call the OpenAI Vision API with this data.")
 
         try:
-            # 3. Send the image to the Vision API
+            # 4. Send the preprocessed image to the Vision API
             response = client.chat.completions.create(
                 model="gpt-4o",
                 messages=[
@@ -119,7 +201,7 @@ else:
             print("Raw response:")
             print(response_content)
             
-            # Parse JSON response and save to Excel
+            # Parse JSON response and display data
             try:
                 # Try to extract JSON from the response (in case there's extra text)
                 json_start = response_content.find('{')
@@ -128,53 +210,19 @@ else:
                     json_str = response_content[json_start:json_end]
                     data = json.loads(json_str)
                     
-                    # Generate output filename
-                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                    output_excel_path = os.path.join("output", f"financial_report_{timestamp}.xlsx")
-                    
-                    # Save table to Excel
-                    with pd.ExcelWriter(output_excel_path, engine='openpyxl') as writer:
-                        # Handle single table format
-                        if 'table' in data:
-                            table = data['table']
-                            sheet_name = "P&L_Table"
-                            df = pd.DataFrame(table['rows'], columns=table['headers'])
-                            df.to_excel(writer, sheet_name=sheet_name, index=False)
-                            print(f"Saved {table['title']} to sheet {sheet_name}")
-                        # Handle legacy tables array format
-                        elif 'tables' in data:
-                            for i, table in enumerate(data.get('tables', [])):
-                                sheet_name = f"Table_{i+1}"
-                                df = pd.DataFrame(table['rows'], columns=table['headers'])
-                                df.to_excel(writer, sheet_name=sheet_name, index=False)
-                                print(f"Saved {table['name']} to sheet {sheet_name}")
-                        
-                        # Save summary data to a separate sheet if it exists
-                        if 'summary' in data:
-                            summary_df = pd.DataFrame(list(data['summary'].items()), 
-                                                    columns=['Field', 'Value'])
-                            summary_df.to_excel(writer, sheet_name='Summary', index=False)
-                            print("Saved summary data to sheet Summary")
-                    
-                    print(f"\n[+] Successfully saved structured data to: {output_excel_path}")
+                    # Just print the parsed data
+                    print("--- Parsed JSON Data ---")
+                    print(json.dumps(data, indent=2))
                     
                 else:
-                    print("Could not find JSON in response. Saving raw text...")
-                    # Fallback: save raw response to text file
-                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                    output_text_path = os.path.join("output", f"raw_response_{timestamp}.txt")
-                    with open(output_text_path, 'w') as f:
-                        f.write(response_content)
-                    print(f"Saved raw response to: {output_text_path}")
+                    print("Could not find JSON in response.")
+                    print("Raw response:")
+                    print(response_content)
                     
             except json.JSONDecodeError as e:
                 print(f"JSON parsing error: {e}")
-                print("Saving raw response to text file...")
-                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                output_text_path = os.path.join("output", f"raw_response_{timestamp}.txt")
-                with open(output_text_path, 'w') as f:
-                    f.write(response_content)
-                print(f"Saved raw response to: {output_text_path}")
+                print("Raw response:")
+                print(response_content)
             
         except Exception as e:
             print(f"\n--- Error calling OpenAI API ---")
