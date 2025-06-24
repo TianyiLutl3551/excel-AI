@@ -201,15 +201,15 @@ class AttachmentProcessor:
         preprocessed_image_data = self.preprocess_image(image_data)
         base64_image = base64.b64encode(preprocessed_image_data).decode('utf-8')
         
-        # Step 1: Extract raw table data from image using Vision API
-        vision_prompt_text = (
-            "Extract the main Dynamic Hedge P&L table from this image. "
-            "Return ONLY the table data in a simple format that can be easily processed. "
-            "Include the title and all rows with their values. "
-            "Format as plain text with clear column separators."
-        )
+        # Single Vision API call with full prompt.py logic
+        from prompt import get_llm_prompt
         
-        print("\n--- Step 1: Extracting raw table data from image ---")
+        # Get the full transformation prompt from prompt.py
+        vision_prompt = get_llm_prompt("")
+        
+        print("\n--- Single Vision API Call with Full Transformation Logic ---")
+        print("Sending image directly to Vision API with prompt.py logic...")
+        
         try:
             response = self.client.chat.completions.create(
                 model="gpt-4o",
@@ -217,7 +217,7 @@ class AttachmentProcessor:
                     {
                         "role": "user",
                         "content": [
-                            {"type": "text", "text": vision_prompt_text},
+                            {"type": "text", "text": vision_prompt},
                             {
                                 "type": "image_url",
                                 "image_url": {
@@ -229,28 +229,9 @@ class AttachmentProcessor:
                 ],
                 max_tokens=4000
             )
-            raw_table_data = response.choices[0].message.content
-            print("Raw table data extracted from image:")
-            print(raw_table_data)
             
-            # Step 2: Apply the prompt.py logic to transform the data
-            print("\n--- Step 2: Applying structured data transformation ---")
-            from prompt import get_llm_prompt
-            
-            # Get the prompt from prompt.py
-            llm_prompt = get_llm_prompt(raw_table_data)
-            
-            # Call LLM to transform the data
-            response2 = self.client.chat.completions.create(
-                model="gpt-4o",
-                messages=[
-                    {"role": "user", "content": llm_prompt}
-                ],
-                max_tokens=4000
-            )
-            
-            structured_data = response2.choices[0].message.content
-            print("Structured data response:")
+            structured_data = response.choices[0].message.content
+            print("Vision API Response:")
             print(structured_data)
             
             # Parse the structured JSON data
@@ -262,7 +243,7 @@ class AttachmentProcessor:
                     json_str = structured_data[json_start:json_end]
                     data = json.loads(json_str)
                 else:
-                    print("Could not find JSON array in structured response.")
+                    print("Could not find JSON array in response.")
                     return None
                 
                 print("--- Parsed Structured Data ---")
