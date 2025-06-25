@@ -55,6 +55,9 @@ DATA EXTRACTION RULES:
    - Skip Daily Net, QTD Net, YTD Net columns
    - Skip summary/total rows
    - Include all rows with a label, even if the values are zero or missing, except for rows labeled "Total" or section headers.
+   - If a value is "-", treat it as 0.
+   - Do NOT use values from the "Daily Net" or "QTD Net" columns for "RIDER_VALUE" or "ASSET_VALUE".
+   - Only use the value under the "Asset" column for "ASSET_VALUE".
 
 MANDATORY OUTPUT CHECKLIST:
 For each of the following RISK_TYPE and GREEK_TYPE pairs, you MUST output a row, even if the value is missing or zero. If a row is not present in the data, output it with RIDER_VALUE and ASSET_VALUE as 0.
