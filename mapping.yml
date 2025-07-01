@@ -1,0 +1,116 @@
+- pattern: "^Equity[:\\s\\-]+Delta( P&L)?$|^Equity Delta$"
+  risk_type: "Equity"
+  greek_type: "Delta"
+  flags: "IGNORECASE"
+
+- pattern: "^Equity[:\\s\\-]+Gamma( P&L)?$|^Equity Gamma$|^Equity Gamma P&L$"
+  risk_type: "Equity"
+  greek_type: "Gamma"
+  flags: "IGNORECASE"
+
+- pattern: "^Equity.*Gamma.*Residual$|^Equity Gamma Residual$"
+  risk_type: "Equity"
+  greek_type: "Gamma_Residual"
+  flags: "IGNORECASE"
+
+- pattern: "^Equity[:\\s\\-]+Volatility( P&L)?$|^Volatility P&L$|^Equity Volatility$"
+  risk_type: "Equity"
+  greek_type: "Volatility"
+  flags: "IGNORECASE"
+
+- pattern: "^Rate[:\\s\\-]+Dynamic Rho( P&L)?$|^Interest Rate Rho$|^Dynamic Rho$"
+  risk_type: "Interest_Rate"
+  greek_type: "Rho"
+  flags: "IGNORECASE"
+
+- pattern: "Interest Rate Convexity.*Residual"
+  risk_type: "Interest_Rate"
+  greek_type: "Convexity_Residual"
+  flags: "IGNORECASE"
+
+- pattern: "Interest Rate Basis"
+  risk_type: "Interest_Rate"
+  greek_type: "Basis"
+  flags: "IGNORECASE"
+
+- pattern: "^Credit[:\\s\\-]+Credit( P&L)?$|^Credit P&L$|^Credit$"
+  risk_type: "Credit"
+  greek_type: "Credit"
+  flags: "IGNORECASE"
+
+- pattern: "^HY Total$"
+  risk_type: "Credit"
+  greek_type: "HY_Total"
+  flags: "IGNORECASE"
+
+- pattern: "^AGG Credit$"
+  risk_type: "Credit"
+  greek_type: "AGG_Credit"
+  flags: "IGNORECASE"
+
+- pattern: "^Agg Risk Free Growth$"
+  risk_type: "Credit"
+  greek_type: "Agg_Risk_Free_Growth"
+  flags: "IGNORECASE"
+
+- pattern: "^ILP Update$"
+  risk_type: "Credit"
+  greek_type: "ILP_Update"
+  flags: "IGNORECASE"
+
+- pattern: "^ILP$"
+  risk_type: "Credit"
+  greek_type: "ILP"
+  flags: "IGNORECASE"
+
+- pattern: "^Fund Basis.*Fund Mapping$"
+  risk_type: "Fund_Basis_Fund_Mapping"
+  greek_type: ""
+  flags: "IGNORECASE"
+
+- pattern: "^Passage of Time$"
+  risk_type: "Passage_Of_Time"
+  greek_type: ""
+  flags: "IGNORECASE"
+
+- pattern: "^Other Inforce$"
+  risk_type: "Other_Inforce"
+  greek_type: ""
+  flags: "IGNORECASE"
+
+- pattern: "^New Business$"
+  risk_type: "New_Business"
+  greek_type: ""
+  flags: "IGNORECASE"
+
+- pattern: "^Cross Impact.*True.?up$"
+  risk_type: "Cross_Impact_True_up"
+  greek_type: ""
+  flags: "IGNORECASE"
+
+- pattern: "^Underlying Fund( P&L)?$"
+  risk_type: "Underlying_Fund"
+  greek_type: ""
+  flags: "IGNORECASE"
+
+- pattern: "^Fees$"
+  risk_type: "Fees"
+  greek_type: ""
+  flags: "IGNORECASE"
+
+- pattern: "^Claims$"
+  risk_type: "Claims"
+  greek_type: ""
+  flags: "IGNORECASE" 
+
+- pattern: "^Theta / Carry P&L$"
+  risk_type: "Theta_Carry"
+  greek_type: ""
+  flags: "IGNORECASE"
+  
+- pattern: "^Other Unhedged P&L$"
+  risk_type: "Other_Unhedged"
+  greek_type: ""
+  flags: "IGNORECASE"
+
+
