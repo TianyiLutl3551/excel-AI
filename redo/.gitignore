@@ -1,0 +1,27 @@
+# Sensitive files
+secrets.toml
+config.json
+
+# Virtual Environment
+venv/
+__pycache__/
+
+# OS
+.DS_Store
+
+# Temporary files
+.~*
+*~
+
+# Output files
+output/*.xlsx
+output/*.png
+output/*.jpg
+output/*.jpeg
+
+# Log files
+validation_log.txt
+
+# Test files (optional - you can remove this if you want to include tests)
+test_*.py
+debug_*.py 

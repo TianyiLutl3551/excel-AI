@@ -40,6 +40,37 @@ env/
 ehthumbs.db
 Thumbs.db
 
-# Project specific
+# Sensitive files
+secrets.toml
+*.toml
+config.json
+
+# Temporary files
+.~*
+*~
+
+# Output files (but allow redo/output to be tracked)
+output/*.xlsx
+output/*.png
+output/*.jpg
+output/*.jpeg
+
+# Input files
 input/*.xlsx
-output/*.xlsx secrets.toml
+input/*.msg
+
+# Installers
+*.dmg
+*.pkg
+
+# Reference code (if it contains sensitive info)
+reference code/
+
+# Old files that were moved to redo
+file_processor.py
+llm_API.py
+llm_data.py
+llm_main.py
+msg_file_process.py
+process_record.txt
+prompt.py

@@ -1,9 +1,3 @@
-import re
-import json
-import pandas as pd
-from openai import OpenAI
-import os
-
 def get_llm_prompt(data_str):
     """Return the LLM prompt for transforming Excel data into a structured format."""
     return f'''Given the following Excel data:
@@ -55,12 +49,15 @@ DATA EXTRACTION RULES:
    - Skip Daily Net, QTD Net, YTD Net columns
    - Skip summary/total rows
    - Include all rows with a label, even if the values are zero or missing, except for rows labeled "Total" or section headers.
-   - If a value is "-", treat it as 0.
-   - Do NOT use values from the "Daily Net" or "QTD Net" columns for "RIDER_VALUE" or "ASSET_VALUE".
-   - Only use the value under the "Asset" column for "ASSET_VALUE".
 
-MANDATORY OUTPUT CHECKLIST:
-For each of the following RISK_TYPE and GREEK_TYPE pairs, you MUST output a row, even if the value is missing or zero. If a row is not present in the data, output it with RIDER_VALUE and ASSET_VALUE as 0.
+IMPORTANT EXTRACTION INSTRUCTIONS:
+- Do not guess or infer values. Only output the exact numbers shown in the table.
+- If a cell is '-', output 0. If a cell is blank, output 0. Otherwise, use the exact number shown.
+- Do not shift values between columns or rows!!!!!
+- Rider value is always the value in the Liability column, and Asset value is always the value in the Asset column.
+
+OUTPUT CHECKLIST:
+For each of the following RISK_TYPE and GREEK_TYPE pairs, you SHOULD output a row, even if RIDER_VALUE and ASSET_VALUE is 0.
 
 - ("Interest_Rate", "Basis")
 - ("Interest_Rate", "Rho")
@@ -85,10 +82,12 @@ If a pair above is not found, output it with zeros.
 If a new pair is found in the data, include it as-is.
 
 IMPORTANT:
-- Always output all pairs in the checklist above, even if the values are zero or missing.
+- Always output the pairs if they are shown up in the table which may be covered in the checklist above, even if the values are zero or missing.
 - Also output any additional RISK_TYPE/GREEK_TYPE pairs found in the data.
 - Do not merge RISK_TYPE and GREEK_TYPE into a single field.
 - Return ONLY the JSON array, no explanations or additional text.
+- Do not output any pairs that are not shown up in the table.
+- Do not round up the values, use the exact values shown up in the table.
 
 EXAMPLE OUTPUT FORMAT:
 [

@@ -1,21 +1,18 @@
 import pandas as pd
-from openai import OpenAI
-import os
-from pathlib import Path
-import json
 import re
-import logging as log
 from datetime import datetime
 
-class LLMData:
+class ExcelProcessor:
     def __init__(self, file_path):
         self.file_path = file_path
         self.df = None
 
     def load_sheet(self, sheet_name):
+        """Load a specific sheet from the Excel file."""
         self.df = pd.read_excel(self.file_path, sheet_name=sheet_name)
 
     def wb_dbib_clean_df(self):
+        """Clean DataFrame for WB and DBIB sheets."""
         df_clean = self.df.dropna(how="all")
         df_clean = df_clean.dropna(how="all", axis=1)
         # Skip rows where the first column starts with 'Total'
@@ -25,6 +22,7 @@ class LLMData:
         return df_clean
     
     def av_clean_df(self):
+        """Clean DataFrame for AV sheets."""
         df_clean = self.df.dropna(how="all")
         df_clean = df_clean.dropna(how="all", axis=1)
         # Check if the first row's first column starts with "Account value allocations"
@@ -34,6 +32,7 @@ class LLMData:
         return df_clean
 
     def wb_dbib_extract_product_and_date_from_anywhere(self, df_clean):
+        """Extract product type and valuation date from anywhere in the DataFrame."""
         # Flatten the DataFrame to a list of strings
         for row in df_clean.itertuples(index=False):
             for cell in row:
@@ -54,6 +53,7 @@ class LLMData:
         return "", ""
 
     def wb_dbib_structure_final_df(self, df_clean, valuation_date, product_type):
+        """Structure the final DataFrame for WB and DBIB sheets."""
         # 1. Drop the first row (title row)
         df_struct = df_clean.iloc[1:].reset_index(drop=True)
         # 2. Add VALUATION_DATE and PRODUCT_TYPE columns
@@ -76,6 +76,7 @@ class LLMData:
         return df_struct
 
     def get_cleaned_sheet(self, sheet_name):
+        """Get cleaned and structured sheet data."""
         self.load_sheet(sheet_name)
         if sheet_name in ["WB", "DBIB"]:
             df_clean = self.wb_dbib_clean_df()
@@ -85,42 +86,4 @@ class LLMData:
         elif sheet_name == "AV":
             return self.av_clean_df()
         else:
-            raise ValueError(f"Unknown sheet: {sheet_name}")
-
-# if __name__ == "__main__":
-#     file_path = "/Users/lutianyi/Desktop/excel AI/input/AVsample.xlsx"
-#     sheet_names = ["WB", "DBIB"]
-#     combined_structured = []
-
-#     for sheet in sheet_names:
-#         if sheet == "WB" or sheet == "DBIB":
-#             try:
-#                 llm_data = LLMData(file_path)
-#                 # Read only the specific sheet
-#                 llm_data.df = pd.read_excel(file_path, sheet_name=sheet)
-#                 df_clean = llm_data.wb_dbib_clean_df()
-#                 product_type, valuation_date = llm_data.wb_dbib_extract_product_and_date_from_anywhere(df_clean)
-#                 df_struct = llm_data.wb_dbib_structure_final_df(df_clean, valuation_date, product_type)
-#                 combined_structured.append(df_struct)
-#             except Exception as e:
-#                 print(f"Skipping sheet {sheet}: {e}")
-#         elif sheet == "AV":
-#             try:
-#                 llm_data = LLMData(file_path)
-#                 llm_data.df = pd.read_excel(file_path, sheet_name=sheet)
-#                 df_clean = llm_data.av_clean_df()
-#                 print(df_clean)
-#             except Exception as e:
-#                 print(f"Skipping sheet {sheet}: {e}")
-
-
-#     if combined_structured:
-#         combined_df = pd.concat(combined_structured, ignore_index=True)
-#         print(combined_df)
-#         combined_df.to_csv("output/combined_output.csv", index=False)
-#         print("Combined DataFrame saved to output/combined_output.csv")
-#     else:
-#         print("No valid sheets processed.")
- 
-
-    
+            raise ValueError(f"Unknown sheet: {sheet_name}") 
