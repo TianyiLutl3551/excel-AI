@@ -181,7 +181,7 @@ def process_single_file(file_path: str) -> Dict[str, Any]:
         raise
 
 def main():
-    test_file = "/Users/lutianyi/Desktop/excel AI/input/FW_ Please review_ Daily Hedging P&L Summary for WB 2024_05_01.msg"
+    test_file = "/Users/lutianyi/Desktop/excel AI/input/SampleInput20240802.xlsx"
     if not os.path.exists(test_file):
         print(f"❌ Test file not found: {test_file}")
         print("Please update the test_file path in main() function")
