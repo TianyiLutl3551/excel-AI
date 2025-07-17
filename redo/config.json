@@ -1,0 +1,9 @@
+{
+  "file_types": [".xlsx", ".xls", ".msg"],
+  "default_sheets": ["WB", "DBIB"],
+  "output_dir": "/Users/lutianyi/Desktop/excel AI/redo/output",
+  "input_dir": "/Users/lutianyi/Desktop/excel AI/input",
+  "process_log_file": "/Users/lutianyi/Desktop/excel AI/redo/output/process_log.txt",
+  "extract_highlights": true,
+  "log_level": "INFO"
+} 
