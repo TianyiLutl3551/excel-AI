@@ -14,6 +14,9 @@ class ValidationNode:
         # Format numbers consistently with 6 decimal places
         def format_value(x):
             if isinstance(x, (int, float)):
+                # Normalize all zero values to 0.0
+                if x == 0 or x == 0.0 or x == -0.0:
+                    x = 0.0
                 return f"{x:.6f}"
             return str(x)
         

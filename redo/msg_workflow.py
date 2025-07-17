@@ -155,6 +155,20 @@ class MsgWorkflowNode:
             import pandas as pd
             from io import StringIO
             df = pd.read_csv(StringIO(table_csv))
+            # --- POST-PROCESSING FILTER ---
+            # Remove rows where RISK_TYPE or label contains 'Total' (except 'HY_Total')
+            def is_valid_row(row):
+                for col in row.index:
+                    val = str(row[col]).lower()
+                    if 'total' in val and 'hy_total' not in val:
+                        return False
+                return True
+            if 'RISK_TYPE' in df.columns:
+                mask = df['RISK_TYPE'].apply(lambda x: ('total' not in str(x).lower()) or ('hy_total' in str(x).lower()))
+                df = df[mask]
+            else:
+                df = df[df.apply(is_valid_row, axis=1)]
+            df.to_excel(table_path, index=False)
         except Exception as e:
             print(f"[ERROR] Failed to parse LLM table CSV: {e}")
             state["msg_outputs"] = {
@@ -165,7 +179,6 @@ class MsgWorkflowNode:
                 "error": f"Failed to parse LLM table CSV: {e}"
             }
             return state
-        df.to_excel(table_path, index=False)
 
         # --- Only for validation: robustly parse table_text to DataFrame ---
         docint_df = None
@@ -177,124 +190,139 @@ class MsgWorkflowNode:
                 # Step 1: Delete empty rows
                 non_empty_lines = [line for line in lines if line.strip()]
                 
-                if table_type == "red":
-                    # Red table parsing logic (existing logic)
-                    # Step 2: Find the header row with "Liability" and "Asset"
+                if table_type == "red" or table_type == "blue":
+                    # Unified header detection for both table types
+                    parsed_data = []
                     header_line = None
+                    rider_col_idx = None
+                    asset_col_idx = None
+                    header_pattern = re.compile(r"\b(rider|liability)\b", re.IGNORECASE)
+                    asset_pattern = re.compile(r"\basset\b", re.IGNORECASE)
                     for i, line in enumerate(non_empty_lines):
-                        if 'Liability' in line and 'Asset' in line:
+                        parts = line.split()
+                        # For blue table, skip 'Rider' between 'VA' and 'WB' or 'DBIB'
+                        skip_rider = False
+                        if table_type == "blue":
+                            for j, part in enumerate(parts):
+                                # Check for 'Rider' between 'VA' and 'WB' or 'DBIB'
+                                if part.lower() in ["rider", "liability"]:
+                                    if (
+                                        j > 0 and parts[j-1].lower() == "va" and
+                                        j+1 < len(parts) and parts[j+1].lower() in ["wb", "dbib"]
+                                    ):
+                                        # Skip this 'Rider'/'Liability'
+                                        continue
+                                    elif rider_col_idx is None:
+                                        rider_col_idx = j
+                                if asset_col_idx is None and part.lower() == "asset":
+                                    asset_col_idx = j
+                        else:
+                            # Red table: use previous logic
+                            for j, part in enumerate(parts):
+                                if rider_col_idx is None and header_pattern.fullmatch(part):
+                                    rider_col_idx = j
+                                if asset_col_idx is None and asset_pattern.fullmatch(part):
+                                    asset_col_idx = j
+                        if rider_col_idx is not None and asset_col_idx is not None:
                             header_line = i
+                            print(f"[DEBUG] Header line parts: {parts}")
+                            print(f"[DEBUG] Found blue/red table header at line {header_line}")
+                            print(f"[DEBUG] Rider/Liability column index: {rider_col_idx}, Asset column index: {asset_col_idx}")
                             break
-                    
-                    if header_line is not None:
+                    # Fallback to known structure if not found
+                    if rider_col_idx is None or asset_col_idx is None:
+                        print("[DEBUG] Could not find column indices automatically, using known structure")
+                        if table_type == "blue":
+                            rider_col_idx = 3
+                            asset_col_idx = 4
+                        else:
+                            rider_col_idx = 1
+                            asset_col_idx = 2
+                        print(f"[DEBUG] Using default indices: Rider/Liability={rider_col_idx}, Asset={asset_col_idx}")
+                    if header_line is not None and rider_col_idx is not None and asset_col_idx is not None:
                         # Step 3: Extract data rows after header, skipping "Total" rows (except "HY Total")
                         data_rows = []
                         for line in non_empty_lines[header_line + 1:]:
-                            # Skip rows containing "Total" (unless it's "HY Total")
                             if 'Total' in line and 'HY Total' not in line:
                                 continue
                             data_rows.append(line)
-                        
-                        # Step 4: Parse each data row to extract Liability and Asset values
-                        parsed_data = []
-                        print("[DEBUG] Document Intelligence parsing rows (RED table):")
+                        print(f"[DEBUG] Document Intelligence parsing rows ({table_type.upper()} table):")
                         for i, line in enumerate(data_rows):
                             print(f"[DEBUG] Row {i}: {line}")
                             parts = line.split()
-                            numeric_values = []
-                            for part in parts:
+                            if len(parts) > max(rider_col_idx, asset_col_idx):
                                 try:
-                                    if part in ['None', 'nan', '', '-']:
-                                        numeric_values.append(0)
-                                    else:
-                                        # If it's an integer, keep as int; if decimal, keep as float
-                                        if re.match(r'^-?\d+$', part):
-                                            numeric_values.append(int(part))
-                                        elif re.match(r'^-?\d+\.\d+$', part):
-                                            numeric_values.append(float(part))
+                                    rider_val_str = parts[rider_col_idx]
+                                    asset_val_str = parts[asset_col_idx]
+                                    print(f"[DEBUG] Raw values: rider='{rider_val_str}', asset='{asset_val_str}'")
+                                    # Parse Rider/Liability value
+                                    if rider_val_str in ['None', 'nan', '', '-']:
+                                        rider_val = 0.0
+                                        print(f"[DEBUG] Rider parsed as 0.0 (None/nan/empty)")
+                                    elif rider_val_str.startswith('(') and rider_val_str.endswith(')'):
+                                        clean_part = rider_val_str[1:-1]
+                                        if re.match(r'^\d+\.?\d*$', clean_part):
+                                            rider_val = -float(clean_part)
+                                            print(f"[DEBUG] Rider parsed as {rider_val} (parentheses)")
                                         else:
+                                            print(f"[DEBUG] Rider skipped: invalid parentheses format '{clean_part}'")
                                             continue
-                                except ValueError:
-                                    continue
-                            
-                            # Skip rows that only contain zeros (from None/nan values)
-                            if len(numeric_values) >= 2 and not all(x == 0 for x in numeric_values):
-                                parsed_data.append({
-                                    'Liability': numeric_values[0],
-                                    'Asset': numeric_values[1]
-                                })
-                                print(f"[DEBUG] Parsed: Liability={numeric_values[0]}, Asset={numeric_values[1]}")
-                            else:
-                                print(f"[DEBUG] Skipped: insufficient numeric values or all zeros")
-                
-                elif table_type == "blue":
-                    # Blue table parsing logic
-                    # Step 2: Find the header row with "Liability" and "Asset"
-                    header_line = None
-                    for i, line in enumerate(non_empty_lines):
-                        if 'Liability' in line and 'Asset' in line:
-                            header_line = i
-                            break
-                    
-                    if header_line is not None:
-                        # Step 3: Extract data rows after header, skipping "Total" rows (except "HY Total")
-                        data_rows = []
-                        for line in non_empty_lines[header_line + 1:]:
-                            # Skip rows containing "Total" (unless it's "HY Total")
-                            if 'Total' in line and 'HY Total' not in line:
-                                continue
-                            data_rows.append(line)
-                        
-                        # Step 4: Parse each data row to extract Liability and Asset values
-                        parsed_data = []
-                        print("[DEBUG] Document Intelligence parsing rows (BLUE table):")
-                        for i, line in enumerate(data_rows):
-                            print(f"[DEBUG] Row {i}: {line}")
-                            parts = line.split()
-                            numeric_values = []
-                            for part in parts:
-                                try:
-                                    if part in ['None', 'nan', '', '-']:
-                                        numeric_values.append(0)
                                     else:
-                                        # Handle parentheses notation for negative numbers
-                                        if part.startswith('(') and part.endswith(')'):
-                                            # Convert (14.8) to -14.8
-                                            clean_part = part[1:-1]
-                                            if re.match(r'^\d+\.?\d*$', clean_part):
-                                                numeric_values.append(-float(clean_part))
-                                            else:
-                                                continue
+                                        # Clean OCR artifacts and handle various formats
+                                        clean_rider = re.sub(r'0\n:unselected:', '0', rider_val_str)
+                                        print(f"[DEBUG] Cleaned rider: '{clean_rider}'")
+                                        if re.match(r'^-?\d+\.?\d*$', clean_rider):
+                                            rider_val = float(clean_rider)
+                                            print(f"[DEBUG] Rider parsed as {rider_val} (numeric)")
                                         else:
-                                            # If it's an integer, keep as int; if decimal, keep as float
-                                            if re.match(r'^-?\d+$', part):
-                                                numeric_values.append(int(part))
-                                            elif re.match(r'^-?\d+\.\d+$', part):
-                                                numeric_values.append(float(part))
-                                            else:
-                                                continue
-                                except ValueError:
+                                            print(f"[DEBUG] Rider skipped: not numeric '{clean_rider}'")
+                                            continue
+                                    # Parse Asset value
+                                    if asset_val_str in ['None', 'nan', '', '-']:
+                                        asset_val = 0.0
+                                        print(f"[DEBUG] Asset parsed as 0.0 (None/nan/empty)")
+                                    elif asset_val_str.startswith('(') and asset_val_str.endswith(')'):
+                                        clean_part = asset_val_str[1:-1]
+                                        if re.match(r'^\d+\.?\d*$', clean_part):
+                                            asset_val = -float(clean_part)
+                                            print(f"[DEBUG] Asset parsed as {asset_val} (parentheses)")
+                                        else:
+                                            print(f"[DEBUG] Asset skipped: invalid parentheses format '{clean_part}'")
+                                            continue
+                                    else:
+                                        # Clean OCR artifacts and handle various formats
+                                        clean_asset = re.sub(r'0\n:unselected:', '0', asset_val_str)
+                                        print(f"[DEBUG] Cleaned asset: '{clean_asset}'")
+                                        if re.match(r'^-?\d+\.?\d*$', clean_asset):
+                                            asset_val = float(clean_asset)
+                                            print(f"[DEBUG] Asset parsed as {asset_val} (numeric)")
+                                        else:
+                                            print(f"[DEBUG] Asset skipped: not numeric '{clean_asset}'")
+                                            continue
+                                    parsed_data.append({
+                                        'Liability': rider_val,
+                                        'Asset': asset_val
+                                    })
+                                    print(f"[DEBUG] Parsed: Liability={rider_val}, Asset={asset_val}")
+                                except (ValueError, IndexError) as e:
+                                    print(f"[DEBUG] Error parsing row {i}: {e}")
                                     continue
-                            
-                            # Skip rows that only contain zeros (from None/nan values)
-                            if len(numeric_values) >= 2 and not all(x == 0 for x in numeric_values):
-                                parsed_data.append({
-                                    'Liability': numeric_values[0],
-                                    'Asset': numeric_values[1]
-                                })
-                                print(f"[DEBUG] Parsed: Liability={numeric_values[0]}, Asset={numeric_values[1]}")
                             else:
-                                print(f"[DEBUG] Skipped: insufficient numeric values or all zeros")
-                
-                if parsed_data:
-                    docint_df = pd.DataFrame(parsed_data)
-                    print(f"[DEBUG] Successfully parsed Document Intelligence DataFrame: {docint_df.shape}")
-                    print(f"[DEBUG] Document Intelligence columns: {list(docint_df.columns)}")
-                    print(f"[DEBUG] First few rows of Document Intelligence data:")
-                    print(docint_df.head())
-                else:
-                    print("[DEBUG] No valid data parsed from Document Intelligence table_text")
-                    
+                                print(f"[DEBUG] Skipped: insufficient columns (need {max(rider_col_idx, asset_col_idx) + 1}, got {len(parts)})")
+                    else:
+                        print(f"[DEBUG] No valid header found with 'Rider'/'Liability' and 'Asset' columns in Document Intelligence output ({table_type.upper()} table)")
+                        print(f"[DEBUG] Header line found: {header_line}")
+                        print(f"[DEBUG] Rider/Liability column index: {rider_col_idx}")
+                        print(f"[DEBUG] Asset column index: {asset_col_idx}")
+                    if parsed_data:
+                        docint_df = pd.DataFrame(parsed_data)
+                        print(f"[DEBUG] Successfully parsed Document Intelligence DataFrame: {docint_df.shape}")
+                        print(f"[DEBUG] Document Intelligence columns: {list(docint_df.columns)}")
+                        print(f"[DEBUG] First few rows of Document Intelligence data:")
+                        print(docint_df.head())
+                    else:
+                        print("[DEBUG] No valid data parsed from Document Intelligence table_text")
+
             except Exception as e:
                 print(f"[ERROR] Could not parse Document Intelligence table_text as DataFrame: {e}")
                 print(f"[DEBUG] Table text format: {table_text[:200]}...")

@@ -1,0 +1,7 @@
+[2025-07-14 15:46:06] FW_ Daily Hedging P&L Summary for DBIB 2025_06_13.msg
+[2025-07-14 15:46:29] FW_ Daily Hedging P&L Summary for WB 2024_05_01.msg
+[2025-07-14 15:46:42] FW_ Please review_ _ Daily Hedging P&L Summary for WB 2023_12_15.msg
+[2025-07-14 15:46:59] SampleInput20240802.xlsx
+[2025-07-14 15:47:36] FW_ Please review_ Daily Hedging P&L Summary for WB 2024_05_01.msg
+[2025-07-14 15:48:21] SampleInput20250512.xlsx
+[2025-07-14 15:48:49] SampleInput20240801.xlsx

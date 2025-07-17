@@ -50,7 +50,21 @@ class ExcelWorkflowNode:
             data = json.loads(json_str)
             if not isinstance(data, list):
                 raise ValueError("LLM response is not a JSON array")
-            return pd.DataFrame(data)
+            df_llm = pd.DataFrame(data)
+            # --- POST-PROCESSING FILTER ---
+            # Remove rows where RISK_TYPE or label contains 'Total' (except 'HY_Total')
+            def is_valid_row(row):
+                for col in row.index:
+                    val = str(row[col]).lower()
+                    if 'total' in val and 'hy_total' not in val:
+                        return False
+                return True
+            if 'RISK_TYPE' in df_llm.columns:
+                mask = df_llm['RISK_TYPE'].apply(lambda x: ('total' not in str(x).lower()) or ('hy_total' in str(x).lower()))
+                df_llm = df_llm[mask]
+            else:
+                df_llm = df_llm[df_llm.apply(is_valid_row, axis=1)]
+            return df_llm.reset_index(drop=True)
         except Exception as e:
             print(f"Error processing data with LLM: {e}")
             return None
