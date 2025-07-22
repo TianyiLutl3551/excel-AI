@@ -4,8 +4,12 @@ import pandas as pd
 from openai import OpenAI
 import os
 
-def get_llm_prompt(data_str):
+def get_llm_prompt(data_str, extracted_date=None):
     """Return the LLM prompt for transforming Excel data into a structured format."""
+    date_instruction = ""
+    if extracted_date:
+        date_instruction = f"\n- IMPORTANT: Use VALUATION_DATE = {extracted_date} if no date is visible in the table data."
+    
     return f'''Given the following Excel data:
 {data_str}
 
@@ -23,8 +27,10 @@ Return a JSON array of objects with these columns:
 DATA EXTRACTION RULES:
 
 1. Title Row Processing:
-   - Extract PRODUCT_TYPE from first word (e.g., "DBIB")
-   - Extract VALUATION_DATE from "as of MM/DD/YYYY" and convert to YYYYMMDD
+   - Extract PRODUCT_TYPE by looking for either "WB" or "DBIB" in the header row (ignore "VA Rider" prefix)
+   - For headers like "VA Rider WB", extract "WB" as the PRODUCT_TYPE
+   - For headers with "DBIB", extract "DBIB" as the PRODUCT_TYPE
+   - Extract VALUATION_DATE from "as of MM/DD/YYYY" and convert to YYYYMMDD{date_instruction}
 
 2. Section Processing:
    Main sections to identify:

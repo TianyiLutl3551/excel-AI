@@ -50,6 +50,10 @@ DATA EXTRACTION RULES:
    - Skip summary/total rows
    - Include all rows with a label, even if the values are zero or missing, except for rows labeled "Total" or section headers.
 
+CRITICAL EXCLUSION RULE:
+- DO NOT include any rows where the label is a section header or a total/subtotal row (e.g., "Total", "Total Equity", "Total Interest Rate", "Total Credit", "Sub Total", "Total P&L", etc.), or where RISK_TYPE is just the section name with no GREEK_TYPE.
+- Only include rows with a specific risk/greek type (e.g., "Delta", "Gamma", "Rho", etc.), or standalone rows that are not totals.
+
 IMPORTANT EXTRACTION INSTRUCTIONS:
 - Do not guess or infer values. Only output the exact numbers shown in the table.
 - If a cell is '-', output 0. If a cell is blank, output 0. Otherwise, use the exact number shown.

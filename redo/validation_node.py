@@ -60,10 +60,13 @@ class ValidationNode:
                 
                 for idx, row in df1_wb.iterrows():
                     for col_idx, value in enumerate(row):
-                        if str(value).strip() == "Liability":
-                            liability_col = col_idx
-                        elif str(value).strip() == "Asset":
-                            asset_col = col_idx
+                        if pd.notna(value):
+                            value_str = str(value).strip().lower()
+                            # Look for exact matches for column headers, not partial matches
+                            if liability_col is None and value_str == "liability":
+                                liability_col = col_idx
+                            elif asset_col is None and value_str == "asset":
+                                asset_col = col_idx
                     if liability_col is not None and asset_col is not None:
                         break
                 
@@ -146,7 +149,7 @@ class ValidationNode:
                 table_path = state.get("msg_outputs", {}).get("table_output")
                 if docint_df is not None and table_path:
                     df1 = docint_df
-                    df2 = pd.read_excel(table_path)
+                    df2 = pd.read_csv(table_path)
                     hash1, concat1 = self.hash_columns(df1, ["Liability", "Asset"])
                     hash2, concat2 = self.hash_columns(df2, ["RIDER_VALUE", "ASSET_VALUE"])
                     match = (hash1 == hash2)

@@ -1,27 +1,54 @@
-# Sensitive files
+# Sensitive configuration files
 secrets.toml
 config.json
 
-# Virtual Environment
+# Virtual environments
 venv/
+env/
+.env
+
+# Python cache files
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
 
-# OS
-.DS_Store
-
-# Temporary files
-.~*
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
 *~
 
-# Output files
-output/*.xlsx
-output/*.png
-output/*.jpg
-output/*.jpeg
+# OS files
+.DS_Store
+Thumbs.db
 
 # Log files
-validation_log.txt
+*.log
+output/
+input/
 
-# Test files (optional - you can remove this if you want to include tests)
-test_*.py
-debug_*.py 
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# Coverage reports
+htmlcov/
+.coverage
+.pytest_cache/
+
+# Documentation builds
+docs/_build/
+
+# Database files
+*.db
+*.sqlite3 
