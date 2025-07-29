@@ -12,7 +12,7 @@ from langgraph.graph import StateGraph, END
 
 # Import modular components
 from file_type_classifier import FileTypeClassifierNode
-from excel_workflow import ExcelWorkflowNode  
+from excel_workflow import ExcelWorkflowNode
 from msg_workflow import MsgWorkflowNode
 from validation_node import ValidationNode
 from config_manager import config_manager
@@ -50,7 +50,7 @@ class DocumentProcessingWorkflow:
             output_dir=config_manager.get_output_dir()
         ))
         self.graph.add_node("validate", ValidationNode())
-    
+        
     def _setup_routing(self):
         """Setup workflow routing logic."""
         # Set entry point
@@ -91,7 +91,7 @@ class DocumentProcessingWorkflow:
         else:
             print(f"❌ Unsupported file type: {file_type}")
             return END
-    
+
     def process_file(self, file_path: str) -> Dict[str, Any]:
         """
         Process a single file through the workflow.
@@ -235,6 +235,28 @@ class WorkflowManager:
             except Exception as e:
                 print(f"Failed to process {file_path}: {e}")
     
+    def process_by_date_range(self, start_date: str, end_date: str):
+        """
+        Process files matching a date range.
+        
+        Args:
+            start_date: Start date in YYYYMMDD format
+            end_date: End date in YYYYMMDD format (inclusive)
+        """
+        files = self.file_manager.get_files_by_date_range(start_date, end_date)
+        
+        if not files:
+            print(f"No files found for date range {start_date} to {end_date}")
+            return
+        
+        print(f"Processing files in date range {start_date} to {end_date}: {[os.path.basename(f) for f in files]}")
+        
+        for file_path in files:
+            try:
+                self.workflow.process_file(file_path)
+            except Exception as e:
+                print(f"Failed to process {file_path}: {e}")
+    
     def process_unprocessed(self, processed_log_file: str = None):
         """
         Process files that haven't been processed yet.
@@ -276,22 +298,30 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python main_workflow_refactored.py --mode all
-  python main_workflow_refactored.py --mode single --date 20240501
-  python main_workflow_refactored.py --mode unprocessed
+  python main_workflow.py --mode all
+  python main_workflow.py --mode range 20240716 20240720
+  python main_workflow.py --mode range 20240716 20240716
+  python main_workflow.py --mode unprocessed
         """
     )
     
     parser.add_argument(
         '--mode', 
-        choices=['all', 'single', 'unprocessed', 'stats'], 
-        default='single',
+        choices=['all', 'range', 'unprocessed', 'stats'], 
+        default='range',
         help='Processing mode'
     )
     parser.add_argument(
-        '--date', 
+        'start_date', 
+        nargs='?',
         type=str, 
-        help='Date code (YYYYMMDD) for single mode'
+        help='Start date (YYYYMMDD) for range mode'
+    )
+    parser.add_argument(
+        'end_date', 
+        nargs='?',
+        type=str, 
+        help='End date (YYYYMMDD) for range mode (inclusive). If omitted, same as start_date'
     )
     parser.add_argument(
         '--input_dir', 
@@ -314,11 +344,15 @@ Examples:
         if args.mode == 'all':
             manager.process_all()
             
-        elif args.mode == 'single':
-            if not args.date:
-                print("Error: --date argument required for single mode")
+        elif args.mode == 'range':
+            if not args.start_date:
+                print("Error: start_date argument required for range mode")
+                print("Usage: python main_workflow.py --mode range 20240716 20240720")
                 return 1
-            manager.process_by_date(args.date)
+            
+            # If end_date not provided, use start_date (single date)
+            end_date = args.end_date if args.end_date else args.start_date
+            manager.process_by_date_range(args.start_date, end_date)
             
         elif args.mode == 'unprocessed':
             manager.process_unprocessed(args.processed_file)

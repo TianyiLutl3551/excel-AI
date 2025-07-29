@@ -82,6 +82,49 @@ class FileManager:
         
         return matched_files
     
+    def get_files_by_date_range(self, start_date: str, end_date: str) -> List[str]:
+        """
+        Get files within a date range (inclusive).
+        
+        Args:
+            start_date: Start date in YYYYMMDD format
+            end_date: End date in YYYYMMDD format (inclusive)
+            
+        Returns:
+            List of full file paths within the date range
+        """
+        all_files = self.get_all_files()
+        matched_files = []
+        
+        # Validate date format
+        try:
+            start_int = int(start_date)
+            end_int = int(end_date)
+        except ValueError:
+            print(f"Error: Invalid date format. Use YYYYMMDD (e.g., 20240716)")
+            return []
+        
+        # Ensure start_date <= end_date
+        if start_int > end_int:
+            start_date, end_date = end_date, start_date
+            start_int, end_int = end_int, start_int
+            print(f"Note: Swapped dates to {start_date} - {end_date}")
+        
+        for file_path in all_files:
+            filename = os.path.basename(file_path)
+            file_date = self.extract_date_code(filename)
+            
+            if file_date:
+                try:
+                    file_date_int = int(file_date)
+                    if start_int <= file_date_int <= end_int:
+                        matched_files.append(file_path)
+                except ValueError:
+                    # Skip files with invalid date codes
+                    continue
+        
+        return sorted(matched_files)  # Sort for consistent ordering
+    
     def get_unprocessed_files(self, processed_log_file: str) -> List[str]:
         """
         Get files that haven't been processed yet.

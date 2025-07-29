@@ -57,11 +57,16 @@ CRITICAL EXCLUSION RULE:
 IMPORTANT EXTRACTION INSTRUCTIONS:
 - Do not guess or infer values. Only output the exact numbers shown in the table.
 - If a cell is '-', output 0. If a cell is blank, output 0. Otherwise, use the exact number shown.
+- CRITICAL: If a row exists in the table but has dashes (-) for values, you MUST still include that row with 0 values.
 - Do not shift values between columns or rows!!!!!
 - Rider value is always the value in the Liability column, and Asset value is always the value in the Asset column.
 
-OUTPUT CHECKLIST:
+ROW ORDER REQUIREMENT:
 For each of the following RISK_TYPE and GREEK_TYPE pairs, you SHOULD output a row, even if RIDER_VALUE and ASSET_VALUE is 0.
+CRITICAL: Output rows in the EXACT ORDER they appear in the source table. Do NOT rearrange rows to match any checklist order.
+
+OUTPUT CHECKLIST (for completeness only):
+Use this checklist only to ensure you don't miss any rows that appear in the table. The checklist order does NOT determine output order.
 
 - ("Interest_Rate", "Basis")
 - ("Interest_Rate", "Rho")
@@ -86,11 +91,12 @@ If a pair above is not found, output it with zeros.
 If a new pair is found in the data, include it as-is.
 
 IMPORTANT:
-- Always output the pairs if they are shown up in the table which may be covered in the checklist above, even if the values are zero or missing.
+- CRITICAL: Maintain the EXACT row order from the source table. Do not reorder rows to match checklist sequence order.
+- Always output the pairs if they are shown up in the table which may be covered in the checklist above, even if the values are zero or missing (including rows with dashes).
 - Also output any additional RISK_TYPE/GREEK_TYPE pairs found in the data.
 - Do not merge RISK_TYPE and GREEK_TYPE into a single field.
 - Return ONLY the JSON array, no explanations or additional text.
-- Do not output any pairs that are not shown up in the table.
+- Include ALL pairs that appear in the table, converting dashes to zeros.
 - Do not round up the values, use the exact values shown up in the table.
 
 EXAMPLE OUTPUT FORMAT:

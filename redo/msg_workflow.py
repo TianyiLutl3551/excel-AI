@@ -18,12 +18,13 @@ class MsgWorkflowNode:
             with open(config_path, "r") as f:
                 config = json.load(f)
             output_dir = config.get("output_dir", "redo/output")
-        self.processor = MsgProcessor(llm_vision_func)
+        self.processor = MsgProcessor()
+        self.llm_vision_func = llm_vision_func  # Store for use in processing
         self.llm_func = llm_func  # Function to call LLM for table extraction
         self.output_dir = output_dir
         os.makedirs(self.output_dir, exist_ok=True)
 
-    def extract_highlights(self, msg_path):
+    def extract_highlights(self, msg_path, azure_ocr_text=None):
         msg = extract_msg.Message(msg_path)
         subject = msg.subject or ""
         match = re.search(r'(\d{4})[/-](\d{2})[/-](\d{2})', subject)
@@ -31,11 +32,49 @@ class MsgWorkflowNode:
             date_str = ''.join(match.groups())
         else:
             date_str = datetime.now().strftime('%Y%m%d')
+        
+        # First try to extract from HTML body
         html = getattr(msg, 'htmlBody', None) or msg.body or getattr(msg, 'rtfBody', None) or ""
+        
+        # Handle bytes HTML body
+        if isinstance(html, bytes):
+            html = html.decode('utf-8', errors='ignore')
+            
         soup = BeautifulSoup(html, 'html.parser')
         text = soup.get_text(separator='\n')
         lines = text.splitlines()
         daily, qtd, generic = [], [], []
+        
+        # Try extracting from HTML first
+        highlights_found = self._extract_highlights_from_text(lines, daily, qtd, generic)
+        
+        # If no highlights found in HTML and we have Azure OCR text, try extracting from OCR
+        if not highlights_found and azure_ocr_text:
+            print("[DEBUG] No highlights found in HTML body, trying Azure OCR text")
+            ocr_lines = azure_ocr_text.split('\n')
+            highlights_found = self._extract_highlights_from_text(ocr_lines, daily, qtd, generic)
+            
+        # If still no highlights, provide fallback
+        if not highlights_found:
+            print("[DEBUG] No highlights found in either HTML or OCR, using fallback")
+            daily = [f"Daily highlights not available for {date_str}"]
+            qtd = [f"QTD highlights not available for {date_str}"]
+        
+        # Format date for display (YYYYMMDD)
+        formatted_date = date_str
+        
+        highlights_df = pd.DataFrame({
+            'Date': [formatted_date] * max(len(daily) if daily else 1, len(qtd) if qtd else 1),
+            'Daily Highlights': daily if daily else [''],
+            'QTD Highlights': qtd if qtd else ['']
+        })
+        highlight_path = os.path.join(self.output_dir, f"highlights_{date_str}.csv")
+        highlights_df.to_csv(highlight_path, index=False)
+        return highlight_path
+
+    def _extract_highlights_from_text(self, lines, daily, qtd, generic):
+        """Extract highlights from text lines, return True if any highlights found"""
+        highlights_found = False
         i = 0
         while i < len(lines):
             line = lines[i].strip()
@@ -63,6 +102,7 @@ class MsgWorkflowNode:
                 # Clean up the section text - remove excessive whitespace
                 cleaned_section = self._clean_highlights_text('\n'.join(section))
                 daily.append(cleaned_section)
+                highlights_found = True
             elif re.search(r'daily highlights', line, re.IGNORECASE):
                 section = [line]
                 i += 1
@@ -73,6 +113,7 @@ class MsgWorkflowNode:
                     i += 1
                 cleaned_section = self._clean_highlights_text('\n'.join(section))
                 daily.append(cleaned_section)
+                highlights_found = True
             elif re.search(r'qtd highlights', line, re.IGNORECASE):
                 section = [line]
                 i += 1
@@ -83,6 +124,7 @@ class MsgWorkflowNode:
                     i += 1
                 cleaned_section = self._clean_highlights_text('\n'.join(section))
                 qtd.append(cleaned_section)
+                highlights_found = True
             elif re.search(r'highlights', line, re.IGNORECASE):
                 section = [line]
                 i += 1
@@ -93,17 +135,15 @@ class MsgWorkflowNode:
                     i += 1
                 cleaned_section = self._clean_highlights_text('\n'.join(section))
                 generic.append(cleaned_section)
+                highlights_found = True
             else:
                 i += 1
+                
         if not daily and not qtd and generic:
             daily = generic
-        highlights_df = pd.DataFrame({
-            'Daily Highlights': daily if daily else [''],
-            'QTD Highlights': qtd if qtd else ['']
-        })
-        highlight_path = os.path.join(self.output_dir, f"highlights_{date_str}.csv")
-        highlights_df.to_csv(highlight_path, index=False)
-        return highlight_path
+            highlights_found = True
+            
+        return highlights_found
 
     def _clean_highlights_text(self, text):
         """Clean up highlights text by removing excessive whitespace and empty lines."""
@@ -328,13 +368,21 @@ class MsgWorkflowNode:
 
     def __call__(self, state: dict) -> dict:
         file_path = state["file_path"]
-        highlight_path = self.extract_highlights(file_path)
-        result = self.processor.process_msg(file_path)
+        
+        # First process the MSG to get OCR results
+        result = self.processor.process_msg(file_path, self.llm_vision_func)
         if not result:
-            state["msg_outputs"] = {"success": False, "reason": "No target image found"}
+            # Still try to extract highlights even if no table found
+            highlight_path = self.extract_highlights(file_path)
+            state["msg_outputs"] = {"success": False, "reason": "No target image found", "highlight_output": highlight_path}
             return state
+            
         table_type = result["table_type"]
         table_text = result["table_text"]
+        full_text = result.get("full_text", "")
+        
+        # Now extract highlights with access to Azure OCR full text
+        highlight_path = self.extract_highlights(file_path, azure_ocr_text=full_text)
         image_path = result["image_path"]
         print(f"[DEBUG] Table type classified by vision model: {table_type}")
         print("[DEBUG] Azure OCR table_text sent to LLM:\n", table_text)
