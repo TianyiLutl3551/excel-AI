@@ -28,10 +28,18 @@ build/
 .DS_Store
 Thumbs.db
 
+# Data directories - exclude contents but keep structure
+data/input/*
+data/output/*
+log/*
+
+# Keep .gitkeep files to preserve folder structure
+!data/input/.gitkeep
+!data/output/.gitkeep
+!log/.gitkeep
+
 # Log files
 *.log
-output/
-input/
 
 # Temporary files
 *.tmp
@@ -51,4 +59,11 @@ docs/_build/
 
 # Database files
 *.db
-*.sqlite3 
+*.sqlite3
+
+# Backup files
+*.backup
+*.bak
+
+# iCloud files
+*.icloud 

@@ -3,16 +3,16 @@ openai>=1.0.0
 langgraph>=0.2.0
 langchain>=0.2.0
 
-# Data Processing and Analysis - PINNED COMPATIBLE VERSIONS
-pandas==2.0.3
-numpy==1.26.4
+# Data Processing and Analysis
+pandas>=2.0.0
+numpy>=1.24.0
 openpyxl>=3.1.0
 xlrd>=2.0.0
 
-# Image Processing and OCR - PINNED COMPATIBLE VERSIONS  
+# Image Processing and OCR
 Pillow>=10.0.0
 pytesseract>=0.3.10
-opencv-python==4.9.0.80
+opencv-python>=4.8.0
 
 # Azure Services
 azure-core>=1.29.0

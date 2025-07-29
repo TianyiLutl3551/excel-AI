@@ -245,7 +245,7 @@ def get_file_manager(input_dir: str = None) -> FileManager:
     if _file_manager is None or (input_dir and _file_manager.input_dir != input_dir):
         # Import here to avoid circular imports
         try:
-            from config_manager import config_manager
+            from utils.config_manager import config_manager
             default_input_dir = config_manager.get_input_dir()
         except ImportError:
             default_input_dir = "../input"

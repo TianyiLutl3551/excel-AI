@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 import os
 import extract_msg
 from PIL import Image
@@ -13,7 +16,7 @@ import pandas as pd
 # Tesseract OCR setup - now handled by ConfigManager
 
 # Azure Document Intelligence config (loaded from config manager)
-from config_manager import ConfigManager
+from src.utils.config_manager import ConfigManager
 
 class MsgProcessor:
     def __init__(self):

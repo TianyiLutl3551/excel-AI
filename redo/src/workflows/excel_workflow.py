@@ -4,11 +4,13 @@ import toml
 import re
 import pandas as pd
 from openai import OpenAI
-from excel_processor import ExcelProcessor
-from excel_prompts import get_llm_prompt
+import sys
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
+from src.processors.excel_processor import ExcelProcessor
+from prompts.excel_prompts import get_llm_prompt
 
 class ExcelWorkflowNode:
-    def __init__(self, config_path="config.json", secrets_path="secrets.toml"):
+    def __init__(self, config_path="config/config.json", secrets_path="config/secrets.toml"):
         # Load configuration
         with open(config_path, "r") as f:
             self.config = json.load(f)
@@ -22,7 +24,7 @@ class ExcelWorkflowNode:
         
         # Get settings from config
         self.default_sheets = self.config.get("default_sheets", ["WB", "DBIB"])
-        self.output_dir = self.config.get("output_dir", "redo/output")
+        self.output_dir = self.config.get("paths", {}).get("output_dir", "data/output")
         
         # Create output directory
         os.makedirs(self.output_dir, exist_ok=True)

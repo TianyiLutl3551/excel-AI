@@ -5,13 +5,17 @@
         "tesseract_cmd": null
     },
     "logging": {
-        "process_log_file": "output/process_log.txt",
-        "validation_log_file": "output/validation_log.txt",
-        "error_log_file": "output/error_log.txt",
-        "summary_log_file": "output/summary_log.txt"
+        "process_log_file": "log/process_log.txt",
+        "validation_log_file": "log/validation_log.txt",
+        "error_log_file": "log/error_log.txt",
+        "summary_log_file": "log/summary_log.txt"
     },
     "processing": {
-        "supported_extensions": [".xlsx", ".xls", ".msg"],
+        "supported_extensions": [
+            ".xlsx",
+            ".xls",
+            ".msg"
+        ],
         "azure_model": "prebuilt-layout",
         "validation_enabled": true
     },
@@ -23,4 +27,4 @@
             "linux_tesseract": "/usr/bin/tesseract"
         }
     }
-} 
+}

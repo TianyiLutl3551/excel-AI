@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 import pandas as pd
 import hashlib
 import time
@@ -5,7 +8,7 @@ import os
 from datetime import datetime
 
 class ValidationNode:
-    def __init__(self, log_path="output/validation_log.txt"):
+    def __init__(self, log_path="log/validation_log.txt"):
         self.log_path = log_path
         # Ensure the directory exists
         os.makedirs(os.path.dirname(self.log_path), exist_ok=True)

@@ -46,18 +46,18 @@ venv\Scripts\activate
 
 ### 3. Install Dependencies
 
-```bash
-pip install -r requirements.txt
-```
+   ```bash
+   pip install -r requirements.txt
+   ```
 
 ### 4. Configure Environment
 
 Create `secrets.toml` file in the project root:
 
-```toml
-[openai]
+   ```toml
+   [openai]
 api_key = "your-openai-api-key"
-model = "gpt-4o"
+   model = "gpt-4o"
 vision_model = "gpt-4o"
 
 [azure]
@@ -91,19 +91,19 @@ pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tessera
 ### Processing Modes
 
 1. **All Files**: Process all files in input directory
-   ```bash
+```bash
    python main_workflow.py --mode all
-   ```
+```
 
 2. **Single File**: Process files by date code (YYYYMMDD)
-   ```bash
+```bash
    python main_workflow.py --mode single --date 20240501
-   ```
+```
 
 3. **Unprocessed Files**: Process only files not previously processed
-   ```bash
+```bash
    python main_workflow.py --mode unprocessed
-   ```
+```
 
 ### Example Commands
 
@@ -119,7 +119,7 @@ python main_workflow.py --mode unprocessed
 
 # Custom input directory
 python main_workflow.py --mode all --input_dir "C:\MyFiles\Input"
-```
+  ```
 
 ## Project Structure
 
@@ -196,7 +196,7 @@ Key dependencies include:
 
 ## License
 
-[Your License Here]
+[Your License Here] 
 
 ## Support
 

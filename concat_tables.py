@@ -1,22 +1,20 @@
 #!/usr/bin/env python3
 """
-Concatenation utility for table data.
+CSV Table Concatenation Script
 Concatenates all table CSV files in the output directory, preserves row order within each table,
-and sorts all data by VALUATION_DATE for chronological analysis.
+and sorts the final result by VALUATION_DATE.
 """
 
 import os
 import pandas as pd
 import glob
-from src.utils.config_manager import ConfigManager
+from datetime import datetime
 
-def concatenate_tables():
-    """
-    Concatenate all table CSV files into a single file, sorted by VALUATION_DATE.
-    """
-    # Load configuration
-    config_manager = ConfigManager()
-    output_dir = config_manager.get_output_dir()
+def main():
+    """Main function to concatenate all table CSV files."""
+    
+    # Configuration
+    output_dir = "output"
     output_file = "combined_all_tables.csv"
     
     print("🔄 Starting CSV concatenation process...")
@@ -26,11 +24,8 @@ def concatenate_tables():
     csv_pattern = os.path.join(output_dir, "*.csv")
     all_csv_files = glob.glob(csv_pattern)
     
-    # Filter out highlights files and combined files - only include table files
-    table_files = [f for f in all_csv_files if 
-                   os.path.basename(f).startswith("table_") and 
-                   "highlights_" not in os.path.basename(f) and
-                   "combined_" not in os.path.basename(f)]
+    # Filter out highlights files
+    table_files = [f for f in all_csv_files if "highlights_" not in os.path.basename(f)]
     
     if not table_files:
         print("❌ No table CSV files found in output directory!")
@@ -123,4 +118,4 @@ def concatenate_tables():
     print("🎉 Concatenation completed!")
 
 if __name__ == "__main__":
-    concatenate_tables() 
+    main() 

@@ -1,23 +1,23 @@
 import os
 import pandas as pd
-from msg_processor import MsgProcessor
+from src.processors.msg_processor import MsgProcessor
 import extract_msg
 from bs4 import BeautifulSoup
 import re
 from datetime import datetime
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../reference code')))
-from prompt import get_llm_prompt as get_blue_llm_prompt
-from prompt2 import get_llm_prompt2 as get_red_llm_prompt
+from prompts.prompt import get_llm_prompt as get_blue_llm_prompt
+from prompts.prompt2 import get_llm_prompt2 as get_red_llm_prompt
 
 class MsgWorkflowNode:
     def __init__(self, llm_vision_func, llm_func, output_dir=None):
         import json
-        config_path = "config.json"
+        config_path = "config/config.json"
         if output_dir is None:
             with open(config_path, "r") as f:
                 config = json.load(f)
-            output_dir = config.get("output_dir", "redo/output")
+            output_dir = config.get("paths", {}).get("output_dir", "data/output")
         self.processor = MsgProcessor()
         self.llm_vision_func = llm_vision_func  # Store for use in processing
         self.llm_func = llm_func  # Function to call LLM for table extraction
@@ -32,6 +32,20 @@ class MsgWorkflowNode:
             date_str = ''.join(match.groups())
         else:
             date_str = datetime.now().strftime('%Y%m%d')
+        
+        # Extract product type from filename to make highlights unique
+        filename = os.path.basename(msg_path)
+        product_type = "UNKNOWN"
+        if "DBIB" in filename.upper():
+            product_type = "DBIB"
+        elif "WB" in filename.upper():
+            product_type = "WB"
+        else:
+            # Try to extract from subject line
+            if "DBIB" in subject.upper():
+                product_type = "DBIB"
+            elif "WB" in subject.upper():
+                product_type = "WB"
         
         # First try to extract from HTML body
         html = getattr(msg, 'htmlBody', None) or msg.body or getattr(msg, 'rtfBody', None) or ""
@@ -68,8 +82,24 @@ class MsgWorkflowNode:
             'Daily Highlights': daily if daily else [''],
             'QTD Highlights': qtd if qtd else ['']
         })
-        highlight_path = os.path.join(self.output_dir, f"highlights_{date_str}.csv")
+        # Create unique filename with product type and sequential counter to prevent overwrites
+        base_filename = f"highlights_{date_str}_{product_type}"
+        highlight_path = os.path.join(self.output_dir, f"{base_filename}.csv")
+        
+        # If file already exists, add sequential counter
+        counter = 1
+        while os.path.exists(highlight_path):
+            counter += 1
+            highlight_path = os.path.join(self.output_dir, f"{base_filename}_{counter:03d}.csv")
+        
+        # If counter was used, also update the base filename for logging
+        if counter > 1:
+            final_filename = f"{base_filename}_{counter:03d}.csv"
+        else:
+            final_filename = f"{base_filename}.csv"
+        
         highlights_df.to_csv(highlight_path, index=False)
+        print(f"[DEBUG] Highlights saved to: {os.path.basename(highlight_path)}")
         return highlight_path
 
     def _extract_highlights_from_text(self, lines, daily, qtd, generic):

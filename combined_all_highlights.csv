@@ -1,0 +1,77 @@
+Date,Daily Highlights,QTD Highlights,SOURCE_FILE
+20231215,"Dynamic P&L Highlights
+•         $3m gain on Delta (affected by $0m SPX cash/futures basis on the day)
+
+o        $3m gain  on EAFE/cash future basis
+
+•        $0m impact on Gamma
+
+•        $0m impact on Volatility
+
+•        -$2m loss on Total Rho Hedge (-$1m loss on Treasury Basis)
+
+•        $31m gain on Credit
+
+•        -$28m loss on Underlying Fund P&L (excluding EAFE timing of  -$8m, EM timing of  -$5m)
+
+•        -$1m loss on POT/Carry/Fee",,highlights_20231215.csv
+20240501,"Dynamic P&L Highlights
+•        -$1m loss on Delta (affected by $0m SPX cash/futures basis on the day)
+o        -$1m loss  on EAFE/cash future basis
+•        $0m impact on Gamma
+•        $0m impact on Volatility
+•        $1m gain on Total Rho Hedge ($1m gain on Treasury Basis)
+•        -$6m loss on Credit
+•        $3m gain on Underlying Fund P&L (excluding EAFE timing of  $2m, EM timing of  $0m)
+•        -$9m loss on POT/Carry/Fee",,highlights_20240501.csv
+20240716,"Daily Highlights: $1m help from fund basis net with hedge. $13m help on EM/EAFE timing, a reverse of the prior day.
+QTD Highlights: Targeted risks are effectively managed.",,highlights_20240716.csv
+20240717,"Daily Highlights:
+Q'ID Highlights; ""Taargjestesel visckes cares esifest:fireesly umaareagyesel.",,highlights_20240717.csv
+20240718,"Daily Highlights:
+Daily result is mainly driven by EAFE and EM indices timing impact flowing through fund basis line, which is expected to reverse.
+QTD Highlights:
+Targeted risks are effectively managed.",,highlights_20240718.csv
+20240719,Can you quickly resend this as some words in the daily highlights comments were cut off.,,highlights_20240719.csv
+20240722,"Daily Highlights:
+Daily result is mainly driven by EAFE and EM indices timing impact flowing through fund basis line, which is a reversal of prior day's result.
+QTD Highlights:
+Targeted risks are effectively managed.",,highlights_20240722.csv
+20240723,"Daily Highlights:
+Daily result is mainly driven by EAFE and EM indices timing impact flowing through fund basis line, which is a expected to reverse.
+QTD Highlights:
+Targeted risks are effectively managed. Passage of time line does not yet include investment income, which should partially offset the liability accretion of interest loss.",,highlights_20240723.csv
+20240724,"Daily Highlights:
+Daily result is mainly driven by EAFE and EM indices timing impact flowing through fund basis line,
+which is a partial reversal of prior day's results.","QTD Highlights:
+Targeted risks are effectively managed.
+QTD fund basis timing impact is still negative.",highlights_20240724.csv
+20240725,"Daily Highlights:
+Daily result is mainly driven by EAFE and EM indices timing impact flowing through fund basis line,
+which is a reversal of prior day's results.
+QTD Highlights:
+Targeted risks are effectively managed.",,highlights_20240725.csv
+20240726,"Daily Highlights:
+Daily result is mainly driven by continued reversal of EAFE and EM indices timing impact.
+QTD Highlights:
+Targeted risks are effectively managed.
+QTD timing impact on fund basis is $4M gain.",,highlights_20240726.csv
+20240729,"Daily Highlights:
+Daily result is mainly driven by EAFE and EM indices timing impact flowing through fund basis line.
+QTD Highlights:
+Targeted risks are effectively managed.
+QTD fund basis timing impact is at $4M loss.",,highlights_20240729.csv
+20240730,"Daily Highlights:
+Daily result is mainly driven by EAFE and EM indices timing impact flowing through fund basis line,
+which is a partial reversal of prior day's results.
+QTD Highlights:
+Targeted risks are effectively managed.",,highlights_20240730.csv
+20250613,"Daily Highlights:
+fund basis is $2 hurt on FB, offset by timing hurt of $1.","QTD Highlights:
+Targeted risks are effectively managed.
+Q2 QTD total FB gain 10, with FB timing related loss 8, of which 3 loss from Q225 reversed timing gain in Q125, and FB net with hedge gain 15
+.",highlights_20250613.csv
+20250716,"Daily Highlights:
+Targeted risks are effectively managed.","QTD Highlights:
+Targeted risks are effectively managed.
+Q3 QTD total FB impact 0, with FB timing related gain 1, and 3 timing related loss from Q125 and Q225 are expected to reverse.",highlights_20250716.csv

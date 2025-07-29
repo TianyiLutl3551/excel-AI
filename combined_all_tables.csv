@@ -1,0 +1,487 @@
+VALUATION_DATE,PRODUCT_TYPE,RISK_TYPE,GREEK_TYPE,RIDER_VALUE,ASSET_VALUE,SOURCE_FILE
+20231215,WB,ILP,,0.0,0.0,table_FW_ Please review_ _ Daily Hedging P&L Summary for WB 2023_12_15.csv
+20231215,WB,Equity,Delta,-8.0,12.0,table_FW_ Please review_ _ Daily Hedging P&L Summary for WB 2023_12_15.csv
+20231215,WB,Equity,Gamma,0.0,0.0,table_FW_ Please review_ _ Daily Hedging P&L Summary for WB 2023_12_15.csv
+20231215,WB,Equity,Volatility,0.0,0.0,table_FW_ Please review_ _ Daily Hedging P&L Summary for WB 2023_12_15.csv
+20231215,WB,Rates,Dynamic_Rho,-22.0,20.0,table_FW_ Please review_ _ Daily Hedging P&L Summary for WB 2023_12_15.csv
+20231215,WB,Credit,Credit,29.0,1.0,table_FW_ Please review_ _ Daily Hedging P&L Summary for WB 2023_12_15.csv
+20231215,WB,Underlying_Fund,,-36.0,-5.0,table_FW_ Please review_ _ Daily Hedging P&L Summary for WB 2023_12_15.csv
+20231215,WB,Theta_Carry,,-3.0,2.0,table_FW_ Please review_ _ Daily Hedging P&L Summary for WB 2023_12_15.csv
+20231215,WB,Other_Unhedged,,-2.0,0.0,table_FW_ Please review_ _ Daily Hedging P&L Summary for WB 2023_12_15.csv
+20231215,WB,New_Business_Model_Change,,0.0,0.0,table_FW_ Please review_ _ Daily Hedging P&L Summary for WB 2023_12_15.csv
+20231215,WB,Fees,,0.0,2.0,table_FW_ Please review_ _ Daily Hedging P&L Summary for WB 2023_12_15.csv
+20240501,WB,Equity,Delta,-14.0,14.0,table_FW_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,Interest_Rate,Basis,0.0,1.1,table_FW_ Please review_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,Interest_Rate,Convexity_Residual,-0.7,0.4,table_FW_ Please review_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,Interest_Rate,Rho,-67.0,67.0,table_FW_ Please review_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,Credit,HY_Total,0.3,-0.9,table_FW_ Please review_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,Equity,Gamma_Residual,0.7,-0.1,table_FW_ Please review_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,Equity,Delta,-14.8,14.3,table_FW_ Please review_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,Model_Change,,0.0,0.0,table_FW_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,New_Business,,0.0,0.0,table_FW_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,ILP,,0.0,0.0,table_FW_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,Claims,,0.0,0.0,table_FW_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,Fees,,0.0,2.0,table_FW_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,Other_Unhedged,,-8.0,0.0,table_FW_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,Theta_Carry,,-4.0,1.0,table_FW_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,Underlying_Fund,,5.0,1.0,table_FW_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,Credit,Credit,-6.0,0.0,table_FW_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,Rates,Dynamic_Rho,-68.0,69.0,table_FW_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,Credit,AGG_Credit,-5.9,0.6,table_FW_ Please review_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,Credit,Agg_Risk_Free_Growth,-0.5,0.0,table_FW_ Please review_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,Cross_Impact_True_up,,-0.1,0.0,table_FW_ Please review_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,Fund_Basis_Fund_Mapping,,4.8,1.0,table_FW_ Please review_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,Credit,ILP_Update,0.0,0.0,table_FW_ Please review_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,Equity,Volatility,0.0,0.0,table_FW_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,Equity,Gamma,0.0,0.0,table_FW_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,Other_Inforce,,-9.3,0.0,table_FW_ Please review_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,Passage_Of_Time,,-2.1,2.2,table_FW_ Please review_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240501,WB,New_Business,,0.2,0.0,table_FW_ Please review_ Daily Hedging P&L Summary for WB 2024_05_01.csv
+20240716,DBIB,New_Business,,-0.0,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_16.csv
+20240716,DBIB,Other_Inforce,,-0.7,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_16.csv
+20240716,DBIB,Passage_Of_Time,,-0.2,-0.1,table_Daily Hedging P&L Summary for DBIB 2024_07_16.csv
+20240716,DBIB,Fund_Basis_Fund_Mapping,,1.5,1.1,table_Daily Hedging P&L Summary for DBIB 2024_07_16.csv
+20240716,DBIB,Credit,Agg_Risk_Free_Growth,-0.1,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_16.csv
+20240716,DBIB,Credit,AGG_Credit,0.2,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_16.csv
+20240716,DBIB,Credit,HY_Total,0.4,-0.5,table_Daily Hedging P&L Summary for DBIB 2024_07_16.csv
+20240716,DBIB,Interest_Rate,Basis,0.0,-1.0,table_Daily Hedging P&L Summary for DBIB 2024_07_16.csv
+20240716,DBIB,Interest_Rate,Convexity_Residual,-0.8,0.5,table_Daily Hedging P&L Summary for DBIB 2024_07_16.csv
+20240716,DBIB,Interest_Rate,Rho,-40.4,40.6,table_Daily Hedging P&L Summary for DBIB 2024_07_16.csv
+20240716,DBIB,Equity,Gamma_Residual,0.3,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_16.csv
+20240716,DBIB,Credit,ILP_Update,0.0,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_16.csv
+20240716,WB,Interest_Rate,Basis,0.0,-1.3,table_Daily Hedging P&L Summary for WB 2024_07_16.csv
+20240716,DBIB,Cross_Impact_True_up,,0.0,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_16.csv
+20240716,WB,Cross_Impact_True_up,,-0.4,0.0,table_Daily Hedging P&L Summary for WB 2024_07_16.csv
+20240716,WB,New_Business,,0.1,0.0,table_Daily Hedging P&L Summary for WB 2024_07_16.csv
+20240716,WB,Other_Inforce,,-2.4,0.0,table_Daily Hedging P&L Summary for WB 2024_07_16.csv
+20240716,WB,Passage_Of_Time,,-2.1,2.2,table_Daily Hedging P&L Summary for WB 2024_07_16.csv
+20240716,WB,Fund_Basis_Fund_Mapping,,10.7,2.8,table_Daily Hedging P&L Summary for WB 2024_07_16.csv
+20240716,WB,Credit,ILP_Update,0.0,0.0,table_Daily Hedging P&L Summary for WB 2024_07_16.csv
+20240716,WB,Credit,Agg_Risk_Free_Growth,-0.4,0.0,table_Daily Hedging P&L Summary for WB 2024_07_16.csv
+20240716,WB,Credit,AGG_Credit,0.4,0.0,table_Daily Hedging P&L Summary for WB 2024_07_16.csv
+20240716,WB,Credit,HY_Total,1.2,-1.4,table_Daily Hedging P&L Summary for WB 2024_07_16.csv
+20240716,WB,Interest_Rate,Convexity_Residual,-0.8,0.7,table_Daily Hedging P&L Summary for WB 2024_07_16.csv
+20240716,WB,Interest_Rate,Rho,-69.5,69.6,table_Daily Hedging P&L Summary for WB 2024_07_16.csv
+20240716,DBIB,Equity,Delta,10.2,-10.3,table_Daily Hedging P&L Summary for DBIB 2024_07_16.csv
+20240716,WB,Equity,Gamma_Residual,0.6,0.0,table_Daily Hedging P&L Summary for WB 2024_07_16.csv
+20240716,WB,Equity,Delta,24.2,-26.3,table_Daily Hedging P&L Summary for WB 2024_07_16.csv
+20240717,DBIB,Fund_Basis_Fund_Mapping,,-7.9,4.8,table_Daily Hedging P&L Summary for DBIB 2024_07_17.csv
+20240717,DBIB,Credit,Agg_Risk_Free_Growth,-0.1,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_17.csv
+20240717,DBIB,Credit,AGG_Credit,-0.2,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_17.csv
+20240717,DBIB,Credit,HY_Total,-0.0,0.1,table_Daily Hedging P&L Summary for DBIB 2024_07_17.csv
+20240717,DBIB,Interest_Rate,Basis,0.0,0.4,table_Daily Hedging P&L Summary for DBIB 2024_07_17.csv
+20240717,DBIB,Interest_Rate,Convexity_Residual,0.0,-0.2,table_Daily Hedging P&L Summary for DBIB 2024_07_17.csv
+20240717,DBIB,Interest_Rate,Rho,-8.2,8.1,table_Daily Hedging P&L Summary for DBIB 2024_07_17.csv
+20240717,DBIB,Equity,Gamma_Residual,0.2,0.1,table_Daily Hedging P&L Summary for DBIB 2024_07_17.csv
+20240717,DBIB,Equity,Delta,-13.5,13.5,table_Daily Hedging P&L Summary for DBIB 2024_07_17.csv
+20240717,DBIB,Other_Inforce,,-0.5,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_17.csv
+20240717,DBIB,New_Business,,-0.0,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_17.csv
+20240717,DBIB,Cross_Impact_True_up,,0.3,-0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_17.csv
+20240717,DBIB,Credit,ILP_Update,0.0,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_17.csv
+20240717,WB,Fund_Basis_Fund_Mapping,,-25.0,12.1,table_Daily Hedging P&L Summary for WB 2024_07_17.csv
+20240717,WB,Passage_Of_Time,,-2.1,2.2,table_Daily Hedging P&L Summary for WB 2024_07_17.csv
+20240717,DBIB,Passage_Of_Time,,-0.2,-0.1,table_Daily Hedging P&L Summary for DBIB 2024_07_17.csv
+20240717,WB,New_Business,,0.1,0.0,table_Daily Hedging P&L Summary for WB 2024_07_17.csv
+20240717,WB,Cross_Impact_True_up,,0.9,0.0,table_Daily Hedging P&L Summary for WB 2024_07_17.csv
+20240717,WB,Equity,Delta,-42.2,43.8,table_Daily Hedging P&L Summary for WB 2024_07_17.csv
+20240717,WB,Equity,Gamma_Residual,0.4,0.6,table_Daily Hedging P&L Summary for WB 2024_07_17.csv
+20240717,WB,Interest_Rate,Rho,-13.3,13.3,table_Daily Hedging P&L Summary for WB 2024_07_17.csv
+20240717,WB,Interest_Rate,Convexity_Residual,0.2,-0.2,table_Daily Hedging P&L Summary for WB 2024_07_17.csv
+20240717,WB,Interest_Rate,Basis,0.0,0.5,table_Daily Hedging P&L Summary for WB 2024_07_17.csv
+20240717,WB,Credit,HY_Total,0.0,0.3,table_Daily Hedging P&L Summary for WB 2024_07_17.csv
+20240717,WB,Credit,AGG_Credit,-1.6,0.1,table_Daily Hedging P&L Summary for WB 2024_07_17.csv
+20240717,WB,Credit,Agg_Risk_Free_Growth,-0.5,0.0,table_Daily Hedging P&L Summary for WB 2024_07_17.csv
+20240717,WB,Credit,ILP_Update,0.0,0.0,table_Daily Hedging P&L Summary for WB 2024_07_17.csv
+20240717,WB,Other_Inforce,,0.8,0.0,table_Daily Hedging P&L Summary for WB 2024_07_17.csv
+20240718,DBIB,Cross_Impact_True_up,,-0.6,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_18.csv
+20240718,DBIB,Equity,Delta,-12.1,11.9,table_Daily Hedging P&L Summary for DBIB 2024_07_18.csv
+20240718,DBIB,Equity,Gamma_Residual,0.3,-0.2,table_Daily Hedging P&L Summary for DBIB 2024_07_18.csv
+20240718,DBIB,Interest_Rate,Rho,26.2,-25.9,table_Daily Hedging P&L Summary for DBIB 2024_07_18.csv
+20240718,DBIB,Interest_Rate,Convexity_Residual,-0.2,0.1,table_Daily Hedging P&L Summary for DBIB 2024_07_18.csv
+20240718,DBIB,Interest_Rate,Basis,0.0,-0.4,table_Daily Hedging P&L Summary for DBIB 2024_07_18.csv
+20240718,DBIB,Credit,HY_Total,0.0,0.1,table_Daily Hedging P&L Summary for DBIB 2024_07_18.csv
+20240718,DBIB,Credit,AGG_Credit,-0.1,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_18.csv
+20240718,DBIB,Credit,Agg_Risk_Free_Growth,-0.1,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_18.csv
+20240718,DBIB,Other_Inforce,,-0.3,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_18.csv
+20240718,DBIB,Fund_Basis_Fund_Mapping,,-0.3,-0.7,table_Daily Hedging P&L Summary for DBIB 2024_07_18.csv
+20240718,DBIB,Passage_Of_Time,,-0.1,-0.2,table_Daily Hedging P&L Summary for DBIB 2024_07_18.csv
+20240718,DBIB,New_Business,,0.0,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_18.csv
+20240718,DBIB,Credit,ILP_Update,0.0,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_18.csv
+20240718,WB,New_Business,,0.0,0.0,table_Daily Hedging P&L Summary for WB 2024_07_18.csv
+20240718,WB,Credit,HY_Total,-0.2,0.3,table_Daily Hedging P&L Summary for WB 2024_07_18.csv
+20240718,WB,Other_Inforce,,-0.7,0.0,table_Daily Hedging P&L Summary for WB 2024_07_18.csv
+20240718,WB,Passage_Of_Time,,-2.1,2.1,table_Daily Hedging P&L Summary for WB 2024_07_18.csv
+20240718,WB,Fund_Basis_Fund_Mapping,,-2.7,-2.1,table_Daily Hedging P&L Summary for WB 2024_07_18.csv
+20240718,WB,Credit,ILP_Update,0.0,0.0,table_Daily Hedging P&L Summary for WB 2024_07_18.csv
+20240718,WB,Credit,Agg_Risk_Free_Growth,-0.5,0.0,table_Daily Hedging P&L Summary for WB 2024_07_18.csv
+20240718,WB,Credit,AGG_Credit,-0.2,0.0,table_Daily Hedging P&L Summary for WB 2024_07_18.csv
+20240718,WB,Cross_Impact_True_up,,0.2,0.0,table_Daily Hedging P&L Summary for WB 2024_07_18.csv
+20240718,WB,Interest_Rate,Convexity_Residual,-0.1,0.0,table_Daily Hedging P&L Summary for WB 2024_07_18.csv
+20240718,WB,Interest_Rate,Rho,44.1,-43.9,table_Daily Hedging P&L Summary for WB 2024_07_18.csv
+20240718,WB,Equity,Gamma_Residual,0.4,0.4,table_Daily Hedging P&L Summary for WB 2024_07_18.csv
+20240718,WB,Equity,Delta,-39.6,39.8,table_Daily Hedging P&L Summary for WB 2024_07_18.csv
+20240718,WB,Interest_Rate,Basis,0.0,-0.4,table_Daily Hedging P&L Summary for WB 2024_07_18.csv
+20240719,WB,Equity,Gamma_Residual,0.5,0.2,table_Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Other_Inforce,,-1.4,0.0,table_RE_ Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Passage_Of_Time,,-2.1,2.1,table_RE_ Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,New_Business,,0.3,0.0,table_RE_ Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Fund_Basis_Fund_Mapping,,3.8,3.3,table_RE_ Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Credit,ILP_Update,0.0,0.0,table_RE_ Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Credit,Agg_Risk_Free_Growth,-0.5,0.0,table_RE_ Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Credit,AGG_Credit,1.9,0.1,table_RE_ Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Credit,HY_Total,-0.5,0.8,table_RE_ Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Interest_Rate,Basis,0.0,0.3,table_RE_ Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Interest_Rate,Convexity_Residual,-0.2,0.1,table_RE_ Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Interest_Rate,Rho,40.5,-40.4,table_RE_ Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Interest_Rate,Rho,40.5,-40.4,table_Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Equity,Gamma_Residual,0.5,0.2,table_RE_ Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,New_Business,,0.3,0.0,table_Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Other_Inforce,,-1.4,0.0,table_Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Passage_Of_Time,,-2.1,2.1,table_Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Fund_Basis_Fund_Mapping,,3.8,3.3,table_Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Credit,ILP_Update,0.0,0.0,table_Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Credit,Agg_Risk_Free_Growth,-0.5,0.0,table_Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Equity,Delta,-36.5,37.4,table_Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Credit,AGG_Credit,1.9,0.1,table_Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Credit,HY_Total,-0.5,0.8,table_Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Interest_Rate,Basis,0.0,0.3,table_Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Interest_Rate,Convexity_Residual,-0.2,0.1,table_Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Cross_Impact_True_up,,-1.0,0.0,table_Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Equity,Delta,-36.5,37.4,table_RE_ Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,WB,Cross_Impact_True_up,,-1.0,0.0,table_RE_ Daily Hedging P&L Summary for WB 2024_07_19.csv
+20240719,DBIB,Credit,HY_Total,-0.2,0.3,table_Daily Hedging P&L Summary for DBIB 2024_07_19.csv
+20240719,DBIB,Equity,Gamma_Residual,0.3,0.1,table_Daily Hedging P&L Summary for DBIB 2024_07_19.csv
+20240719,DBIB,Interest_Rate,Rho,24.3,-24.3,table_Daily Hedging P&L Summary for DBIB 2024_07_19.csv
+20240719,DBIB,Interest_Rate,Convexity_Residual,-0.1,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_19.csv
+20240719,DBIB,Interest_Rate,Basis,0.0,0.2,table_Daily Hedging P&L Summary for DBIB 2024_07_19.csv
+20240719,DBIB,Credit,AGG_Credit,0.1,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_19.csv
+20240719,DBIB,Credit,Agg_Risk_Free_Growth,-0.1,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_19.csv
+20240719,DBIB,Credit,ILP_Update,0.0,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_19.csv
+20240719,DBIB,Fund_Basis_Fund_Mapping,,0.7,0.6,table_Daily Hedging P&L Summary for DBIB 2024_07_19.csv
+20240719,DBIB,Equity,Delta,-10.8,11.2,table_Daily Hedging P&L Summary for DBIB 2024_07_19.csv
+20240719,DBIB,Passage_Of_Time,,-0.1,-0.2,table_Daily Hedging P&L Summary for DBIB 2024_07_19.csv
+20240719,DBIB,New_Business,,-0.1,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_19.csv
+20240719,DBIB,Cross_Impact_True_up,,0.5,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_19.csv
+20240719,DBIB,Other_Inforce,,-0.4,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_19.csv
+20240722,WB,Interest_Rate,Convexity_Residual,0.0,-1.3,table_Daily Hedging P&L Summary for WB 2024_07_22.csv
+20240722,WB,Interest_Rate,Basis,0.0,1.1,table_Daily Hedging P&L Summary for WB 2024_07_22.csv
+20240722,WB,Credit,HY_Total,0.4,-0.9,table_Daily Hedging P&L Summary for WB 2024_07_22.csv
+20240722,WB,Interest_Rate,Rho,23.0,-22.7,table_Daily Hedging P&L Summary for WB 2024_07_22.csv
+20240722,WB,Credit,AGG_Credit,3.0,-0.4,table_Daily Hedging P&L Summary for WB 2024_07_22.csv
+20240722,WB,Credit,Agg_Risk_Free_Growth,-1.4,0.0,table_Daily Hedging P&L Summary for WB 2024_07_22.csv
+20240722,WB,Credit,ILP_Update,0.0,0.0,table_Daily Hedging P&L Summary for WB 2024_07_22.csv
+20240722,WB,Fund_Basis_Fund_Mapping,,8.8,-0.7,table_Daily Hedging P&L Summary for WB 2024_07_22.csv
+20240722,WB,Equity,Gamma_Residual,0.4,-0.5,table_Daily Hedging P&L Summary for WB 2024_07_22.csv
+20240722,DBIB,Passage_Of_Time,,-0.7,-0.2,table_Daily Hedging P&L Summary for DBIB 2024_07_22.csv
+20240722,WB,Passage_Of_Time,,-2.1,2.2,table_Daily Hedging P&L Summary for WB 2024_07_22.csv
+20240722,DBIB,Equity,Delta,12.9,-13.5,table_Daily Hedging P&L Summary for DBIB 2024_07_22.csv
+20240722,DBIB,Equity,Gamma_Residual,0.1,-0.2,table_Daily Hedging P&L Summary for DBIB 2024_07_22.csv
+20240722,DBIB,Interest_Rate,Rho,13.5,-13.5,table_Daily Hedging P&L Summary for DBIB 2024_07_22.csv
+20240722,DBIB,Interest_Rate,Convexity_Residual,0.0,-0.6,table_Daily Hedging P&L Summary for DBIB 2024_07_22.csv
+20240722,DBIB,Interest_Rate,Basis,0.0,0.4,table_Daily Hedging P&L Summary for DBIB 2024_07_22.csv
+20240722,DBIB,Credit,HY_Total,0.1,-0.3,table_Daily Hedging P&L Summary for DBIB 2024_07_22.csv
+20240722,DBIB,Credit,AGG_Credit,0.3,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_22.csv
+20240722,WB,Equity,Delta,40.2,-43.3,table_Daily Hedging P&L Summary for WB 2024_07_22.csv
+20240722,DBIB,Credit,Agg_Risk_Free_Growth,-0.2,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_22.csv
+20240722,WB,Other_Inforce,,3.3,0.0,table_Daily Hedging P&L Summary for WB 2024_07_22.csv
+20240722,WB,Cross_Impact_True_up,,0.5,0.0,table_Daily Hedging P&L Summary for WB 2024_07_22.csv
+20240722,DBIB,Other_Inforce,,0.6,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_22.csv
+20240722,DBIB,New_Business,,0.0,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_22.csv
+20240722,DBIB,Cross_Impact_True_up,,0.4,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_22.csv
+20240722,WB,New_Business,,0.3,0.0,table_Daily Hedging P&L Summary for WB 2024_07_22.csv
+20240722,DBIB,Fund_Basis_Fund_Mapping,,2.9,-1.3,table_Daily Hedging P&L Summary for DBIB 2024_07_22.csv
+20240722,DBIB,ILP_Update,,0.0,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_22.csv
+20240723,WB,Credit,AGG_Credit,-3.5,0.3,table_Daily Hedging P&L Summary for WB 2024_07_23.csv
+20240723,WB,Equity,Delta,-2.6,3.8,table_Daily Hedging P&L Summary for WB 2024_07_23.csv
+20240723,WB,Equity,Gamma_Residual,0.7,-0.1,table_Daily Hedging P&L Summary for WB 2024_07_23.csv
+20240723,WB,Interest_Rate,Rho,-10.8,11.0,table_Daily Hedging P&L Summary for WB 2024_07_23.csv
+20240723,DBIB,Cross_Impact_True_up,,-0.6,0.0,table_FW_ Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,DBIB,New_Business,,0.0,0.0,table_FW_ Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,DBIB,Other_Inforce,,-1.3,0.0,table_FW_ Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,DBIB,Passage_Of_Time,,-0.1,-0.1,table_FW_ Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,DBIB,Fund_Basis_Fund_Mapping,,-2.2,0.8,table_FW_ Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,DBIB,Credit,ILP_Update,0.0,0.0,table_FW_ Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,DBIB,Credit,Agg_Risk_Free_Growth,-0.1,0.0,table_FW_ Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,DBIB,Credit,AGG_Credit,-0.4,0.0,table_FW_ Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,WB,Credit,HY_Total,0.5,-0.4,table_Daily Hedging P&L Summary for WB 2024_07_23.csv
+20240723,DBIB,Credit,HY_Total,0.2,-0.1,table_FW_ Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,DBIB,Interest_Rate,Convexity_Residual,0.0,0.1,table_FW_ Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,DBIB,Interest_Rate,Rho,-7.4,7.5,table_FW_ Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,WB,Interest_Rate,Convexity_Residual,0.2,0.0,table_Daily Hedging P&L Summary for WB 2024_07_23.csv
+20240723,DBIB,Equity,Delta,-0.5,0.5,table_FW_ Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,WB,Cross_Impact_True_up,,-0.4,0.0,table_Daily Hedging P&L Summary for WB 2024_07_23.csv
+20240723,WB,New_Business,,0.2,0.0,table_Daily Hedging P&L Summary for WB 2024_07_23.csv
+20240723,WB,Other_Inforce,,-1.9,0.0,table_Daily Hedging P&L Summary for WB 2024_07_23.csv
+20240723,WB,Passage_Of_Time,,-2.1,2.2,table_Daily Hedging P&L Summary for WB 2024_07_23.csv
+20240723,WB,Interest_Rate,Basis,0.0,0.4,table_Daily Hedging P&L Summary for WB 2024_07_23.csv
+20240723,WB,Credit,ILP_Update,0.0,0.0,table_Daily Hedging P&L Summary for WB 2024_07_23.csv
+20240723,WB,Credit,Agg_Risk_Free_Growth,-0.5,0.0,table_Daily Hedging P&L Summary for WB 2024_07_23.csv
+20240723,DBIB,Interest_Rate,Basis,0.0,-0.1,table_FW_ Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,DBIB,Equity,Gamma_Residual,0.4,0.0,table_FW_ Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,WB,Fund_Basis_Fund_Mapping,,-9.6,1.1,table_Daily Hedging P&L Summary for WB 2024_07_23.csv
+20240723,DBIB,New_Business,,-0.0,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,DBIB,Cross_Impact_True_up,,-0.6,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,DBIB,Other_Inforce,,-1.3,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,DBIB,Passage_Of_Time,,-0.1,-0.1,table_Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,DBIB,Fund_Basis_Fund_Mapping,,-2.2,0.8,table_Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,DBIB,Credit,Agg_Risk_Free_Growth,-0.1,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,DBIB,Credit,AGG_Credit,-0.4,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,DBIB,Credit,ILP_Update,0.0,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,DBIB,Interest_Rate,Basis,0.0,-0.1,table_Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,DBIB,Interest_Rate,Convexity_Residual,0.0,0.1,table_Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,DBIB,Interest_Rate,Rho,-7.4,7.5,table_Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,DBIB,Equity,Gamma_Residual,0.4,-0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,DBIB,Equity,Delta,-0.5,0.5,table_Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240723,DBIB,Credit,HY_Total,0.2,-0.1,table_Daily Hedging P&L Summary for DBIB 2024_07_23.csv
+20240724,DBIB,Other_Inforce,,-0.6,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_24.csv
+20240724,DBIB,Credit,AGG_Credit,-0.1,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_24.csv
+20240724,DBIB,Credit,Agg_Risk_Free_Growth,-0.1,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_24.csv
+20240724,DBIB,Credit,ILP_Update,0.0,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_24.csv
+20240724,DBIB,Fund_Basis_Fund_Mapping,,-6.5,3.7,table_Daily Hedging P&L Summary for DBIB 2024_07_24.csv
+20240724,DBIB,New_Business,,0.0,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_24.csv
+20240724,WB,Passage_Of_Time,,-2.1,2.2,table_Daily Hedging P&L Summary for WB 2024_07_24.csv
+20240724,WB,Other_Inforce,,0.4,0.0,table_Daily Hedging P&L Summary for WB 2024_07_24.csv
+20240724,WB,New_Business,,0.1,0.0,table_Daily Hedging P&L Summary for WB 2024_07_24.csv
+20240724,WB,Cross_Impact_True_up,,-0.5,-0.0,table_Daily Hedging P&L Summary for WB 2024_07_24.csv
+20240724,WB,Fund_Basis_Fund_Mapping,,7.3,1.6,table_Daily Hedging P&L Summary for WB 2024_07_24.csv
+20240724,DBIB,Credit,HY_Total,-0.1,0.3,table_Daily Hedging P&L Summary for DBIB 2024_07_24.csv
+20240724,DBIB,Cross_Impact_True_up,,0.5,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_24.csv
+20240724,DBIB,Interest_Rate,Basis,0.0,1.1,table_Daily Hedging P&L Summary for DBIB 2024_07_24.csv
+20240724,DBIB,Passage_Of_Time,,-0.1,-0.2,table_Daily Hedging P&L Summary for DBIB 2024_07_24.csv
+20240724,DBIB,Interest_Rate,Rho,37.9,-38.0,table_Daily Hedging P&L Summary for DBIB 2024_07_24.csv
+20240724,WB,Credit,Agg_Risk_Free_Growth,-0.5,0.0,table_Daily Hedging P&L Summary for WB 2024_07_24.csv
+20240724,DBIB,Interest_Rate,Convexity_Residual,-0.6,0.2,table_Daily Hedging P&L Summary for DBIB 2024_07_24.csv
+20240724,WB,Credit,ILP_Update,0.0,0.0,table_Daily Hedging P&L Summary for WB 2024_07_24.csv
+20240724,WB,Credit,HY_Total,-0.2,-0.3,table_Daily Hedging P&L Summary for WB 2024_07_24.csv
+20240724,WB,Interest_Rate,Basis,0.0,-1.5,table_Daily Hedging P&L Summary for WB 2024_07_24.csv
+20240724,WB,Interest_Rate,Convexity_Residual,-0.3,0.5,table_Daily Hedging P&L Summary for WB 2024_07_24.csv
+20240724,WB,Credit,AGG_Credit,1.0,-0.1,table_Daily Hedging P&L Summary for WB 2024_07_24.csv
+20240724,DBIB,Equity,Gamma_Residual,-0.4,0.7,table_Daily Hedging P&L Summary for DBIB 2024_07_24.csv
+20240724,DBIB,Equity,Delta,-25.5,25.7,table_Daily Hedging P&L Summary for DBIB 2024_07_24.csv
+20240724,WB,Equity,Gamma_Residual,0.6,0.1,table_Daily Hedging P&L Summary for WB 2024_07_24.csv
+20240724,WB,Equity,Delta,-29.6,27.7,table_Daily Hedging P&L Summary for WB 2024_07_24.csv
+20240724,WB,Interest_Rate,Rho,-40.4,39.8,table_Daily Hedging P&L Summary for WB 2024_07_24.csv
+20240725,WB,Interest_Rate,Convexity_Residual,-0.3,0.5,table_Daily Hedging P&L Summary for WB 2024_07_25.csv
+20240725,WB,Equity,Delta,-29.6,27.7,table_Daily Hedging P&L Summary for WB 2024_07_25.csv
+20240725,WB,Cross_Impact_True_up,,-0.5,-0.0,table_Daily Hedging P&L Summary for WB 2024_07_25.csv
+20240725,WB,New_Business,,0.1,0.0,table_Daily Hedging P&L Summary for WB 2024_07_25.csv
+20240725,WB,Other_Inforce,,0.4,0.0,table_Daily Hedging P&L Summary for WB 2024_07_25.csv
+20240725,WB,Fund_Basis_Fund_Mapping,,7.3,1.6,table_Daily Hedging P&L Summary for WB 2024_07_25.csv
+20240725,WB,Credit,ILP_Update,0.0,0.0,table_Daily Hedging P&L Summary for WB 2024_07_25.csv
+20240725,WB,Credit,AGG_Credit,1.0,-0.1,table_Daily Hedging P&L Summary for WB 2024_07_25.csv
+20240725,WB,Credit,HY_Total,-0.2,-0.3,table_Daily Hedging P&L Summary for WB 2024_07_25.csv
+20240725,WB,Interest_Rate,Basis,0.0,-1.5,table_Daily Hedging P&L Summary for WB 2024_07_25.csv
+20240725,WB,Passage_Of_Time,,-2.1,2.2,table_Daily Hedging P&L Summary for WB 2024_07_25.csv
+20240725,WB,Credit,Agg_Risk_Free_Growth,-0.5,0.0,table_Daily Hedging P&L Summary for WB 2024_07_25.csv
+20240725,DBIB,Other_Inforce,,-0.1,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_25.csv
+20240725,DBIB,New_Business,,-0.2,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_25.csv
+20240725,DBIB,Passage_Of_Time,,-0.1,-0.2,table_Daily Hedging P&L Summary for DBIB 2024_07_25.csv
+20240725,DBIB,Fund_Basis_Fund_Mapping,,0.7,0.9,table_Daily Hedging P&L Summary for DBIB 2024_07_25.csv
+20240725,DBIB,Credit,ILP_Update,0.0,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_25.csv
+20240725,DBIB,Credit,Agg_Risk_Free_Growth,-0.1,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_25.csv
+20240725,DBIB,Credit,AGG_Credit,0.2,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_25.csv
+20240725,DBIB,Credit,HY_Total,0.0,-0.1,table_Daily Hedging P&L Summary for DBIB 2024_07_25.csv
+20240725,DBIB,Interest_Rate,Basis,0.0,-0.5,table_Daily Hedging P&L Summary for DBIB 2024_07_25.csv
+20240725,DBIB,Interest_Rate,Convexity_Residual,-0.4,0.3,table_Daily Hedging P&L Summary for DBIB 2024_07_25.csv
+20240725,DBIB,Interest_Rate,Rho,-22.3,22.8,table_Daily Hedging P&L Summary for DBIB 2024_07_25.csv
+20240725,DBIB,Equity,Gamma_Residual,0.4,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_25.csv
+20240725,DBIB,Equity,Delta,-6.4,6.2,table_Daily Hedging P&L Summary for DBIB 2024_07_25.csv
+20240725,WB,Interest_Rate,Rho,-40.4,39.8,table_Daily Hedging P&L Summary for WB 2024_07_25.csv
+20240725,DBIB,Cross_Impact_True_up,,-0.6,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_25.csv
+20240725,WB,Equity,Gamma_Residual,0.6,0.1,table_Daily Hedging P&L Summary for WB 2024_07_25.csv
+20240726,WB,Interest_Rate,Rho,-41.9,41.7,table_Daily Hedging P&L Summary for WB 2024_07_26.csv
+20240726,DBIB,Credit,AGG_Credit,0.3,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_26.csv
+20240726,DBIB,Cross_Impact_True_up,,0.5,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_26.csv
+20240726,DBIB,New_Business,,-0.1,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_26.csv
+20240726,DBIB,Other_Inforce,,0.0,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_26.csv
+20240726,DBIB,Passage_Of_Time,,-0.1,-0.2,table_Daily Hedging P&L Summary for DBIB 2024_07_26.csv
+20240726,DBIB,Fund_Basis_Fund_Mapping,,3.3,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_26.csv
+20240726,DBIB,Credit,ILP_Update,0.0,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_26.csv
+20240726,DBIB,Credit,Agg_Risk_Free_Growth,-0.1,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_26.csv
+20240726,WB,Equity,Gamma_Residual,0.4,-0.5,table_Daily Hedging P&L Summary for WB 2024_07_26.csv
+20240726,DBIB,Credit,HY_Total,0.2,-0.2,table_Daily Hedging P&L Summary for DBIB 2024_07_26.csv
+20240726,DBIB,Interest_Rate,Basis,0.0,0.2,table_Daily Hedging P&L Summary for DBIB 2024_07_26.csv
+20240726,DBIB,Interest_Rate,Convexity_Residual,-0.2,0.2,table_Daily Hedging P&L Summary for DBIB 2024_07_26.csv
+20240726,DBIB,Interest_Rate,Rho,-25.0,25.0,table_Daily Hedging P&L Summary for DBIB 2024_07_26.csv
+20240726,DBIB,Equity,Gamma_Residual,0.1,-0.3,table_Daily Hedging P&L Summary for DBIB 2024_07_26.csv
+20240726,WB,Equity,Delta,47.2,-47.4,table_Daily Hedging P&L Summary for WB 2024_07_26.csv
+20240726,WB,Credit,AGG_Credit,1.1,0.0,table_Daily Hedging P&L Summary for WB 2024_07_26.csv
+20240726,WB,Cross_Impact_True_up,,0.0,0.0,table_Daily Hedging P&L Summary for WB 2024_07_26.csv
+20240726,WB,New_Business,,0.3,0.0,table_Daily Hedging P&L Summary for WB 2024_07_26.csv
+20240726,WB,Other_Inforce,,-0.8,0.0,table_Daily Hedging P&L Summary for WB 2024_07_26.csv
+20240726,WB,Passage_Of_Time,,-2.1,2.2,table_Daily Hedging P&L Summary for WB 2024_07_26.csv
+20240726,WB,Fund_Basis_Fund_Mapping,,12.4,2.2,table_Daily Hedging P&L Summary for WB 2024_07_26.csv
+20240726,WB,Credit,ILP_Update,0.0,0.0,table_Daily Hedging P&L Summary for WB 2024_07_26.csv
+20240726,WB,Credit,Agg_Risk_Free_Growth,-0.5,0.0,table_Daily Hedging P&L Summary for WB 2024_07_26.csv
+20240726,WB,Credit,HY_Total,0.6,-0.5,table_Daily Hedging P&L Summary for WB 2024_07_26.csv
+20240726,WB,Interest_Rate,Basis,0.0,0.7,table_Daily Hedging P&L Summary for WB 2024_07_26.csv
+20240726,WB,Interest_Rate,Convexity_Residual,-0.2,0.3,table_Daily Hedging P&L Summary for WB 2024_07_26.csv
+20240726,DBIB,Equity,Delta,15.7,-15.4,table_Daily Hedging P&L Summary for DBIB 2024_07_26.csv
+20240729,WB,Passage_Of_Time,,-2.1,2.2,table_Daily Hedging P&L Summary for WB 2024_07_29.csv
+20240729,WB,Other_Inforce,,3.3,0.0,table_Daily Hedging P&L Summary for WB 2024_07_29.csv
+20240729,WB,Equity,Gamma_Residual,0.7,-0.2,table_Daily Hedging P&L Summary for WB 2024_07_29.csv
+20240729,WB,Fund_Basis_Fund_Mapping,,-6.5,-1.5,table_Daily Hedging P&L Summary for WB 2024_07_29.csv
+20240729,WB,Cross_Impact_True_up,,-0.2,0.0,table_Daily Hedging P&L Summary for WB 2024_07_29.csv
+20240729,WB,New_Business,,0.0,0.0,table_Daily Hedging P&L Summary for WB 2024_07_29.csv
+20240729,WB,Credit,ILP_Update,0.0,0.0,table_Daily Hedging P&L Summary for WB 2024_07_29.csv
+20240729,WB,Interest_Rate,Rho,-20.7,20.6,table_Daily Hedging P&L Summary for WB 2024_07_29.csv
+20240729,WB,Credit,AGG_Credit,1.7,-0.1,table_Daily Hedging P&L Summary for WB 2024_07_29.csv
+20240729,WB,Credit,HY_Total,-0.0,0.2,table_Daily Hedging P&L Summary for WB 2024_07_29.csv
+20240729,WB,Interest_Rate,Basis,0.0,-0.8,table_Daily Hedging P&L Summary for WB 2024_07_29.csv
+20240729,WB,Interest_Rate,Convexity_Residual,0.0,0.2,table_Daily Hedging P&L Summary for WB 2024_07_29.csv
+20240729,WB,Equity,Delta,-0.9,0.9,table_Daily Hedging P&L Summary for WB 2024_07_29.csv
+20240729,WB,Credit,Agg_Risk_Free_Growth,-1.4,0.0,table_Daily Hedging P&L Summary for WB 2024_07_29.csv
+20240729,DBIB,Fund_Basis_Fund_Mapping,,-0.8,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_29.csv
+20240729,DBIB,Passage_Of_Time,,-0.7,-0.2,table_Daily Hedging P&L Summary for DBIB 2024_07_29.csv
+20240729,DBIB,Credit,Agg_Risk_Free_Growth,-0.2,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_29.csv
+20240729,DBIB,Credit,AGG_Credit,0.3,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_29.csv
+20240729,DBIB,Equity,Delta,-0.6,0.3,table_Daily Hedging P&L Summary for DBIB 2024_07_29.csv
+20240729,DBIB,Equity,Gamma_Residual,0.4,-0.1,table_Daily Hedging P&L Summary for DBIB 2024_07_29.csv
+20240729,DBIB,Interest_Rate,Rho,-12.0,12.0,table_Daily Hedging P&L Summary for DBIB 2024_07_29.csv
+20240729,DBIB,Interest_Rate,Convexity_Residual,-0.1,0.1,table_Daily Hedging P&L Summary for DBIB 2024_07_29.csv
+20240729,DBIB,Credit,ILP_Update,0.0,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_29.csv
+20240729,DBIB,Credit,HY_Total,-0.0,0.1,table_Daily Hedging P&L Summary for DBIB 2024_07_29.csv
+20240729,DBIB,Cross_Impact_True_up,,-0.1,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_29.csv
+20240729,DBIB,New_Business,,-0.0,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_29.csv
+20240729,DBIB,Other_Inforce,,0.7,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_29.csv
+20240729,DBIB,Interest_Rate,Basis,0.0,-0.5,table_Daily Hedging P&L Summary for DBIB 2024_07_29.csv
+20240730,DBIB,Cross_Impact_True_up,,0.2,-0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_30.csv
+20240730,DBIB,New_Business,,-0.2,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_30.csv
+20240730,DBIB,Other_Inforce,,-2.3,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_30.csv
+20240730,WB,Equity,Delta,-13.6,13.1,table_Daily Hedging P&L Summary for WB 2024_07_30.csv
+20240730,WB,Interest_Rate,Rho,-28.9,28.7,table_Daily Hedging P&L Summary for WB 2024_07_30.csv
+20240730,WB,Interest_Rate,Convexity_Residual,-0.1,0.7,table_Daily Hedging P&L Summary for WB 2024_07_30.csv
+20240730,WB,Interest_Rate,Basis,0.0,-0.4,table_Daily Hedging P&L Summary for WB 2024_07_30.csv
+20240730,WB,Credit,HY_Total,-0.1,0.1,table_Daily Hedging P&L Summary for WB 2024_07_30.csv
+20240730,WB,Credit,AGG_Credit,-2.4,0.3,table_Daily Hedging P&L Summary for WB 2024_07_30.csv
+20240730,WB,Equity,Gamma_Residual,0.7,0.2,table_Daily Hedging P&L Summary for WB 2024_07_30.csv
+20240730,WB,Credit,ILP_Update,0.0,0.0,table_Daily Hedging P&L Summary for WB 2024_07_30.csv
+20240730,DBIB,Equity,Delta,-3.5,3.4,table_Daily Hedging P&L Summary for DBIB 2024_07_30.csv
+20240730,DBIB,Equity,Gamma_Residual,0.4,0.1,table_Daily Hedging P&L Summary for DBIB 2024_07_30.csv
+20240730,DBIB,Interest_Rate,Rho,-17.2,17.1,table_Daily Hedging P&L Summary for DBIB 2024_07_30.csv
+20240730,DBIB,Interest_Rate,Convexity_Residual,-0.2,0.2,table_Daily Hedging P&L Summary for DBIB 2024_07_30.csv
+20240730,DBIB,Interest_Rate,Basis,0.0,-0.1,table_Daily Hedging P&L Summary for DBIB 2024_07_30.csv
+20240730,DBIB,Credit,HY_Total,0.0,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_30.csv
+20240730,DBIB,Credit,AGG_Credit,-0.2,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_30.csv
+20240730,DBIB,Credit,Agg_Risk_Free_Growth,-0.1,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_30.csv
+20240730,DBIB,Credit,ILP_Update,0.0,0.0,table_Daily Hedging P&L Summary for DBIB 2024_07_30.csv
+20240730,DBIB,Fund_Basis_Fund_Mapping,,-2.8,2.3,table_Daily Hedging P&L Summary for DBIB 2024_07_30.csv
+20240730,DBIB,Passage_Of_Time,,-0.1,-0.2,table_Daily Hedging P&L Summary for DBIB 2024_07_30.csv
+20240730,WB,Cross_Impact_True_up,,-0.8,0.0,table_Daily Hedging P&L Summary for WB 2024_07_30.csv
+20240730,WB,New_Business,,0.1,0.0,table_Daily Hedging P&L Summary for WB 2024_07_30.csv
+20240730,WB,Other_Inforce,,-1.9,0.0,table_Daily Hedging P&L Summary for WB 2024_07_30.csv
+20240730,WB,Passage_Of_Time,,-2.2,2.2,table_Daily Hedging P&L Summary for WB 2024_07_30.csv
+20240730,WB,Credit,Agg_Risk_Free_Growth,-0.5,0.0,table_Daily Hedging P&L Summary for WB 2024_07_30.csv
+20240730,WB,Fund_Basis_Fund_Mapping,,-0.6,6.5,table_Daily Hedging P&L Summary for WB 2024_07_30.csv
+20240801,WB,Equity,Delta,-74.140734,76.772278,combined_llm_output_SampleInput20240801.csv
+20240801,WB,Credit,Agg_Risk_Free_Growth,-0.462179,0.0,combined_llm_output_SampleInput20240801.csv
+20240801,WB,Equity,Gamma_Residual,-0.087003,0.644496,combined_llm_output_SampleInput20240801.csv
+20240801,WB,Interest_Rate,Rho,-97.637732,98.37649,combined_llm_output_SampleInput20240801.csv
+20240801,WB,Interest_Rate,Convexity_Residual,-1.521459,1.751976,combined_llm_output_SampleInput20240801.csv
+20240801,WB,Interest_Rate,Basis,0.0,0.623927,combined_llm_output_SampleInput20240801.csv
+20240801,WB,Credit,HY_Total,-0.0934,0.45709,combined_llm_output_SampleInput20240801.csv
+20240801,WB,Credit,AGG_Credit,-12.091487,1.057303,combined_llm_output_SampleInput20240801.csv
+20240801,WB,Credit,ILP_Update,0.0,0.0,combined_llm_output_SampleInput20240801.csv
+20240801,WB,Fund_Basis_Fund_Mapping,,-7.894588,2.352958,combined_llm_output_SampleInput20240801.csv
+20240801,WB,Passage_Of_Time,,-2.133665,2.159381,combined_llm_output_SampleInput20240801.csv
+20240801,WB,Other_Inforce,,-0.184119,0.0,combined_llm_output_SampleInput20240801.csv
+20240801,WB,New_Business,,-0.004128,0.0,combined_llm_output_SampleInput20240801.csv
+20240801,DBIB,Equity,Delta,-23.026692,23.170399,combined_llm_output_SampleInput20240801.csv
+20240801,DBIB,Equity,Gamma_Residual,-0.078459,0.326453,combined_llm_output_SampleInput20240801.csv
+20240801,DBIB,Interest_Rate,Rho,-59.829001,59.386093,combined_llm_output_SampleInput20240801.csv
+20240801,WB,Cross_Impact_True_up,,-1.518004,5e-06,combined_llm_output_SampleInput20240801.csv
+20240801,DBIB,Interest_Rate,Basis,0.0,0.255706,combined_llm_output_SampleInput20240801.csv
+20240801,DBIB,Cross_Impact_True_up,,-0.186194,0.0,combined_llm_output_SampleInput20240801.csv
+20240801,DBIB,Interest_Rate,Convexity_Residual,-0.950368,1.135279,combined_llm_output_SampleInput20240801.csv
+20240801,DBIB,Other_Inforce,,0.250402,0.0,combined_llm_output_SampleInput20240801.csv
+20240801,DBIB,Passage_Of_Time,,-0.150487,-0.150669,combined_llm_output_SampleInput20240801.csv
+20240801,DBIB,Fund_Basis_Fund_Mapping,,-3.027826,3.291263,combined_llm_output_SampleInput20240801.csv
+20240801,DBIB,New_Business,,-0.225338,0.0,combined_llm_output_SampleInput20240801.csv
+20240801,DBIB,Credit,Agg_Risk_Free_Growth,-0.065195,0.0,combined_llm_output_SampleInput20240801.csv
+20240801,DBIB,Credit,AGG_Credit,-1.299129,0.0,combined_llm_output_SampleInput20240801.csv
+20240801,DBIB,Credit,HY_Total,-0.029632,0.15357,combined_llm_output_SampleInput20240801.csv
+20240801,DBIB,Credit,ILP_Update,0.0,0.0,combined_llm_output_SampleInput20240801.csv
+20240802,DBIB,Interest_Rate,Convexity_Residual,-1.944561,2.352643,combined_llm_output_SampleInput20240802.csv
+20240802,WB,New_Business,,0.031224,0.0,combined_llm_output_SampleInput20240802.csv
+20240802,DBIB,Interest_Rate,Basis,0.0,-0.185735,combined_llm_output_SampleInput20240802.csv
+20240802,DBIB,Credit,HY_Total,-0.481242,0.607009,combined_llm_output_SampleInput20240802.csv
+20240802,DBIB,Credit,AGG_Credit,0.311655,0.0,combined_llm_output_SampleInput20240802.csv
+20240802,DBIB,Interest_Rate,Rho,-89.441066,89.312892,combined_llm_output_SampleInput20240802.csv
+20240802,DBIB,Equity,Gamma_Residual,-0.638657,0.564951,combined_llm_output_SampleInput20240802.csv
+20240802,DBIB,Equity,Delta,-31.929116,31.712708,combined_llm_output_SampleInput20240802.csv
+20240802,WB,Cross_Impact_True_up,,-1.78159,1.2e-05,combined_llm_output_SampleInput20240802.csv
+20240802,WB,Other_Inforce,,-3.39106,0.0,combined_llm_output_SampleInput20240802.csv
+20240802,WB,Interest_Rate,Rho,-149.644555,147.642366,combined_llm_output_SampleInput20240802.csv
+20240802,WB,Fund_Basis_Fund_Mapping,,-4.944701,4.435735,combined_llm_output_SampleInput20240802.csv
+20240802,WB,Credit,ILP_Update,0.0,0.0,combined_llm_output_SampleInput20240802.csv
+20240802,WB,Credit,Agg_Risk_Free_Growth,-0.472609,0.0,combined_llm_output_SampleInput20240802.csv
+20240802,WB,Credit,AGG_Credit,-1.602829,0.401598,combined_llm_output_SampleInput20240802.csv
+20240802,WB,Credit,HY_Total,-1.566573,1.805469,combined_llm_output_SampleInput20240802.csv
+20240802,WB,Interest_Rate,Basis,0.0,-0.088612,combined_llm_output_SampleInput20240802.csv
+20240802,WB,Interest_Rate,Convexity_Residual,-3.492081,3.503164,combined_llm_output_SampleInput20240802.csv
+20240802,DBIB,Credit,Agg_Risk_Free_Growth,-0.066132,0.0,combined_llm_output_SampleInput20240802.csv
+20240802,WB,Equity,Delta,-100.982025,99.476754,combined_llm_output_SampleInput20240802.csv
+20240802,WB,Equity,Gamma_Residual,-0.747676,1.106996,combined_llm_output_SampleInput20240802.csv
+20240802,WB,Passage_Of_Time,,-2.142018,2.135293,combined_llm_output_SampleInput20240802.csv
+20240802,DBIB,Credit,ILP_Update,0.0,0.0,combined_llm_output_SampleInput20240802.csv
+20240802,DBIB,Passage_Of_Time,,-0.175926,-0.139459,combined_llm_output_SampleInput20240802.csv
+20240802,DBIB,Other_Inforce,,1.744111,0.0,combined_llm_output_SampleInput20240802.csv
+20240802,DBIB,New_Business,,-0.034875,0.0,combined_llm_output_SampleInput20240802.csv
+20240802,DBIB,Cross_Impact_True_up,,-0.270225,3e-06,combined_llm_output_SampleInput20240802.csv
+20240802,DBIB,Fund_Basis_Fund_Mapping,,-2.119845,1.043275,combined_llm_output_SampleInput20240802.csv
+20250512,DBIB,Other_Inforce,,-0.020422,0.0,combined_llm_output_SampleInput20250512.csv
+20250512,DBIB,Equity,Gamma_Residual,-0.52187,0.691371,combined_llm_output_SampleInput20250512.csv
+20250512,DBIB,Interest_Rate,Rho,27.205031,-27.468825,combined_llm_output_SampleInput20250512.csv
+20250512,DBIB,Interest_Rate,Convexity_Residual,-0.112736,-0.120759,combined_llm_output_SampleInput20250512.csv
+20250512,DBIB,Interest_Rate,Basis,0.0,-0.482796,combined_llm_output_SampleInput20250512.csv
+20250512,DBIB,Credit,AGG_Credit,0.256082,0.0,combined_llm_output_SampleInput20250512.csv
+20250512,DBIB,Equity,Delta,32.284673,-32.453466,combined_llm_output_SampleInput20250512.csv
+20250512,DBIB,Credit,Agg_Risk_Free_Growth,-0.179062,0.0,combined_llm_output_SampleInput20250512.csv
+20250512,DBIB,Cross_Impact_True_up,,-0.715816,-1.3e-05,combined_llm_output_SampleInput20250512.csv
+20250512,DBIB,New_Business,,0.0,0.0,combined_llm_output_SampleInput20250512.csv
+20250512,DBIB,Credit,ILP_Update,0.0,0.0,combined_llm_output_SampleInput20250512.csv
+20250512,DBIB,Credit,HY_Total,1.262786,-1.13762,combined_llm_output_SampleInput20250512.csv
+20250512,WB,Cross_Impact_True_up,,0.425383,-2e-06,combined_llm_output_SampleInput20250512.csv
+20250512,WB,Other_Inforce,,5.272414,0.0,combined_llm_output_SampleInput20250512.csv
+20250512,DBIB,Passage_Of_Time,,-0.331446,0.331446,combined_llm_output_SampleInput20250512.csv
+20250512,WB,Passage_Of_Time,,-4.149781,4.149781,combined_llm_output_SampleInput20250512.csv
+20250512,WB,Fund_Basis_Fund_Mapping,,22.801134,-8.095401,combined_llm_output_SampleInput20250512.csv
+20250512,WB,Credit,ILP_Update,0.0,0.0,combined_llm_output_SampleInput20250512.csv
+20250512,WB,Credit,Agg_Risk_Free_Growth,-1.271351,0.0,combined_llm_output_SampleInput20250512.csv
+20250512,WB,Credit,AGG_Credit,3.241473,-0.279604,combined_llm_output_SampleInput20250512.csv
+20250512,WB,Credit,HY_Total,3.369644,-3.255228,combined_llm_output_SampleInput20250512.csv
+20250512,WB,Interest_Rate,Basis,0.0,-1.157053,combined_llm_output_SampleInput20250512.csv
+20250512,WB,Interest_Rate,Convexity_Residual,-0.027726,-0.236735,combined_llm_output_SampleInput20250512.csv
+20250512,WB,Interest_Rate,Rho,46.052969,-45.704463,combined_llm_output_SampleInput20250512.csv
+20250512,WB,Equity,Gamma_Residual,-0.476249,0.603149,combined_llm_output_SampleInput20250512.csv
+20250512,WB,Equity,Delta,73.040003,-72.311139,combined_llm_output_SampleInput20250512.csv
+20250512,WB,New_Business,,0.001196,0.0,combined_llm_output_SampleInput20250512.csv
+20250512,DBIB,Fund_Basis_Fund_Mapping,,7.297958,-2.578221,combined_llm_output_SampleInput20250512.csv
+20250613,DBIB,Interest_Rate,Convexity_Residual,-0.6,-0.1,table_FW_ Daily Hedging P&L Summary for DBIB 2025_06_13.csv
+20250613,DBIB,Equity,Delta,-15.7,16.1,table_FW_ Daily Hedging P&L Summary for DBIB 2025_06_13.csv
+20250613,DBIB,Cross_Impact_True_up,,0.3,0.0,table_FW_ Daily Hedging P&L Summary for DBIB 2025_06_13.csv
+20250613,DBIB,New_Business,,0.0,0.0,table_FW_ Daily Hedging P&L Summary for DBIB 2025_06_13.csv
+20250613,DBIB,Other_Inforce,,-0.6,0.0,table_FW_ Daily Hedging P&L Summary for DBIB 2025_06_13.csv
+20250613,DBIB,Fund_Basis_Fund_Mapping,,-4.0,0.6,table_FW_ Daily Hedging P&L Summary for DBIB 2025_06_13.csv
+20250613,DBIB,Credit,ILP_Update,0.0,0.0,table_FW_ Daily Hedging P&L Summary for DBIB 2025_06_13.csv
+20250613,DBIB,Passage_Of_Time,,-0.1,0.1,table_FW_ Daily Hedging P&L Summary for DBIB 2025_06_13.csv
+20250613,DBIB,Credit,AGG_Credit,0.0,0.0,table_FW_ Daily Hedging P&L Summary for DBIB 2025_06_13.csv
+20250613,DBIB,Credit,HY_Total,-0.2,0.3,table_FW_ Daily Hedging P&L Summary for DBIB 2025_06_13.csv
+20250613,DBIB,Interest_Rate,Basis,0.0,1.1,table_FW_ Daily Hedging P&L Summary for DBIB 2025_06_13.csv
+20250613,DBIB,Interest_Rate,Rho,31.2,-30.8,table_FW_ Daily Hedging P&L Summary for DBIB 2025_06_13.csv
+20250613,DBIB,Equity,Gamma_Residual,0.0,0.0,table_FW_ Daily Hedging P&L Summary for DBIB 2025_06_13.csv
+20250613,DBIB,Credit,Agg_Risk_Free_Growth,-0.1,0.0,table_FW_ Daily Hedging P&L Summary for DBIB 2025_06_13.csv
+20250716,DBIB,Other_Inforce,,2.4,0.0,table_FW_ Daily Hedging P&L Summary for DBIB 2025_07_16.csv
+20250716,DBIB,Credit,Agg_Risk_Free_Growth,-0.1,0.0,table_FW_ Daily Hedging P&L Summary for DBIB 2025_07_16.csv
+20250716,DBIB,ILP_Update,,0.0,0.0,table_FW_ Daily Hedging P&L Summary for DBIB 2025_07_16.csv
+20250716,DBIB,Fund_Basis_Fund_Mapping,,2.3,0.2,table_FW_ Daily Hedging P&L Summary for DBIB 2025_07_16.csv
+20250716,DBIB,Passage_Of_Time,,-0.1,0.1,table_FW_ Daily Hedging P&L Summary for DBIB 2025_07_16.csv
+20250716,DBIB,New_Business,,0.0,0.0,table_FW_ Daily Hedging P&L Summary for DBIB 2025_07_16.csv
+20250716,DBIB,Equity,Delta,2.0,-1.6,table_FW_ Daily Hedging P&L Summary for DBIB 2025_07_16.csv
+20250716,DBIB,Interest_Rate,Basis,0.0,0.7,table_FW_ Daily Hedging P&L Summary for DBIB 2025_07_16.csv
+20250716,DBIB,Interest_Rate,Convexity_Residual,0.0,0.1,table_FW_ Daily Hedging P&L Summary for DBIB 2025_07_16.csv
+20250716,DBIB,Interest_Rate,Rho,-5.7,6.0,table_FW_ Daily Hedging P&L Summary for DBIB 2025_07_16.csv
+20250716,DBIB,Equity,Gamma_Residual,0.2,0.0,table_FW_ Daily Hedging P&L Summary for DBIB 2025_07_16.csv
+20250716,DBIB,Credit,HY_Total,0.0,0.0,table_FW_ Daily Hedging P&L Summary for DBIB 2025_07_16.csv
+20250716,DBIB,Cross_Impact_True_up,,0.1,0.0,table_FW_ Daily Hedging P&L Summary for DBIB 2025_07_16.csv
+20250716,DBIB,Credit,AGG_Credit,0.1,0.0,table_FW_ Daily Hedging P&L Summary for DBIB 2025_07_16.csv

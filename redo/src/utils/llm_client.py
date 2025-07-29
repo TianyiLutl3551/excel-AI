@@ -13,7 +13,7 @@ import re
 
 
 class LLMClient:
-    def __init__(self, secrets_file="secrets.toml"):
+    def __init__(self, secrets_file="config/secrets.toml"):
         """Initialize LLM client with configuration."""
         self.secrets = toml.load(secrets_file)
         self.openai_config = self.secrets.get("openai", {})

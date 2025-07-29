@@ -1,191 +1,239 @@
 #!/usr/bin/env python3
 """
-Cross-platform setup script for AI Document Processing Workflow
-Automatically detects platform and sets up the environment appropriately
+One-click setup script for AI Document Processing Workflow
+Run this after downloading from GitHub: python setup.py
 """
+
 import os
 import sys
-import platform
 import subprocess
+import platform
 import shutil
 from pathlib import Path
 
-def check_python_version():
-    """Check if Python version is compatible."""
-    version = sys.version_info
-    if version.major < 3 or (version.major == 3 and version.minor < 9):
-        print("❌ Python 3.9+ is required")
-        print(f"   Current version: {sys.version}")
-        return False
-    print(f"✅ Python {sys.version.split()[0]} detected")
-    return True
-
-def check_git():
-    """Check if git is available."""
-    try:
-        subprocess.run(["git", "--version"], capture_output=True, check=True)
-        print("✅ Git is available")
-        return True
-    except (subprocess.CalledProcessError, FileNotFoundError):
-        print("❌ Git not found - please install Git")
-        return False
-
-def setup_virtual_environment():
-    """Create and activate virtual environment."""
-    venv_path = Path("venv")
-    
-    if venv_path.exists():
-        print("✅ Virtual environment already exists")
-        return True
-    
-    try:
-        print("🔄 Creating virtual environment...")
-        subprocess.run([sys.executable, "-m", "venv", "venv"], check=True)
-        print("✅ Virtual environment created")
-        return True
-    except subprocess.CalledProcessError as e:
-        print(f"❌ Failed to create virtual environment: {e}")
-        return False
-
-def install_dependencies():
-    """Install Python dependencies."""
-    # Look for requirements.txt in current directory or parent
-    req_files = ["requirements.txt", "../requirements.txt"]
-    req_file = None
-    
-    for rf in req_files:
-        if Path(rf).exists():
-            req_file = rf
-            break
-    
-    if not req_file:
-        print("❌ requirements.txt not found")
-        return False
-    
-    try:
-        print(f"🔄 Installing dependencies from {req_file}...")
-        
-        # Get the correct pip path for the virtual environment
-        system = platform.system().lower()
-        if system == "windows":
-            pip_cmd = ["venv\\Scripts\\python", "-m", "pip"]
-        else:
-            pip_cmd = ["venv/bin/python", "-m", "pip"]
-        
-        subprocess.run(pip_cmd + ["install", "--upgrade", "pip"], check=True)
-        subprocess.run(pip_cmd + ["install", "-r", req_file], check=True)
-        print("✅ Dependencies installed successfully")
-        return True
-    except subprocess.CalledProcessError as e:
-        print(f"❌ Failed to install dependencies: {e}")
-        return False
-
-def check_tesseract():
-    """Check if Tesseract is installed."""
-    system = platform.system().lower()
-    tesseract_paths = {
-        "windows": [r"C:\Program Files\Tesseract-OCR\tesseract.exe"],
-        "darwin": ["/opt/homebrew/bin/tesseract", "/usr/local/bin/tesseract"],
-        "linux": ["/usr/bin/tesseract", "/usr/local/bin/tesseract"]
-    }
-    
-    paths_to_check = tesseract_paths.get(system, [])
-    
-    for path in paths_to_check:
-        if Path(path).exists():
-            print(f"✅ Tesseract found at: {path}")
-            return True
-    
-    print("❌ Tesseract OCR not found")
-    print("📋 Installation instructions:")
-    if system == "windows":
-        print("   Windows: Download from https://github.com/UB-Mannheim/tesseract/wiki")
-    elif system == "darwin":
-        print("   macOS: brew install tesseract")
-    else:
-        print("   Linux: sudo apt-get install tesseract-ocr")
-    
-    return False
-
-def setup_config_files():
-    """Set up configuration files from templates."""
-    templates = [
-        ("config.json.template", "config.json"),
-        ("secrets.toml.template", "secrets.toml")
-    ]
-    
-    for template, target in templates:
-        template_path = Path(template)
-        target_path = Path(target)
-        
-        if template_path.exists() and not target_path.exists():
-            try:
-                shutil.copy2(template_path, target_path)
-                print(f"✅ Created {target} from template")
-            except Exception as e:
-                print(f"❌ Failed to create {target}: {e}")
-        elif target_path.exists():
-            print(f"✅ {target} already exists")
-        else:
-            print(f"❌ Template {template} not found")
+def print_header():
+    """Print setup header"""
+    print("🚀 AI Document Processing Workflow - Setup")
+    print("=" * 50)
+    print("Setting up your environment automatically...")
+    print("")
 
 def create_directories():
-    """Create necessary directories."""
-    dirs = ["output", "../input"]
+    """Create necessary directories"""
+    dirs = [
+        "data/input",
+        "data/output", 
+        "log"
+    ]
     
-    for directory in dirs:
-        dir_path = Path(directory)
-        if not dir_path.exists():
-            try:
-                dir_path.mkdir(parents=True, exist_ok=True)
-                print(f"✅ Created directory: {directory}")
-            except Exception as e:
-                print(f"❌ Failed to create {directory}: {e}")
+    print("📁 Creating directories...")
+    for dir_path in dirs:
+        Path(dir_path).mkdir(parents=True, exist_ok=True)
+        print(f"   ✅ Created: {dir_path}")
+    
+    # Create .gitkeep files to preserve empty folders
+    gitkeep_files = [
+        "data/input/.gitkeep",
+        "data/output/.gitkeep",
+        "log/.gitkeep"
+    ]
+    
+    for gitkeep in gitkeep_files:
+        Path(gitkeep).touch()
+    
+    print("   ✅ Added .gitkeep files to preserve folder structure")
+
+def setup_virtual_environment():
+    """Create and setup virtual environment"""
+    print("\n🐍 Setting up Python virtual environment...")
+    
+    if not Path("venv").exists():
+        try:
+            subprocess.run([sys.executable, "-m", "venv", "venv"], check=True)
+            print("   ✅ Virtual environment created")
+        except subprocess.CalledProcessError:
+            print("   ❌ Failed to create virtual environment")
+            return False
+    else:
+        print("   ✅ Virtual environment already exists")
+    
+    # Get pip command based on OS
+    if platform.system() == "Windows":
+        pip_cmd = str(Path("venv/Scripts/pip.exe"))
+        activate_cmd = "venv\\Scripts\\activate"
+    else:
+        pip_cmd = str(Path("venv/bin/pip"))
+        activate_cmd = "source venv/bin/activate"
+    
+    print(f"   💡 To activate later: {activate_cmd}")
+    
+    # Install requirements
+    print("\n📦 Installing dependencies...")
+    if Path("requirements.txt").exists():
+        try:
+            subprocess.run([pip_cmd, "install", "--upgrade", "pip"], check=True)
+            subprocess.run([pip_cmd, "install", "-r", "requirements.txt"], check=True)
+            print("   ✅ All dependencies installed successfully")
+            return True
+        except subprocess.CalledProcessError as e:
+            print(f"   ⚠️  Some packages failed to install. Error: {e}")
+            print("   💡 You may need to run manually: pip install -r requirements.txt")
+            return False
+    else:
+        print("   ❌ requirements.txt not found")
+        return False
+
+def setup_config():
+    """Setup configuration files"""
+    print("\n⚙️  Setting up configuration files...")
+    
+    # Setup config.json
+    config_template = Path("config/config.json.template")
+    config_file = Path("config/config.json")
+    
+    if not config_file.exists():
+        if config_template.exists():
+            shutil.copy(config_template, config_file)
+            print("   ✅ config.json created from template")
         else:
-            print(f"✅ Directory exists: {directory}")
+            print("   ⚠️  config.json.template not found")
+    else:
+        print("   ✅ config.json already exists")
+    
+    # Setup secrets.toml
+    secrets_template = Path("config/secrets.toml.template")
+    secrets_file = Path("config/secrets.toml")
+    
+    if not secrets_file.exists():
+        if secrets_template.exists():
+            shutil.copy(secrets_template, secrets_file)
+            print("   ✅ secrets.toml created from template")
+            print("   ⚠️  IMPORTANT: You must edit config/secrets.toml with your API keys!")
+        else:
+            print("   ⚠️  secrets.toml.template not found")
+    else:
+        print("   ✅ secrets.toml already exists")
+
+def check_tesseract():
+    """Check if Tesseract is installed"""
+    print("\n🔍 Checking Tesseract OCR installation...")
+    
+    tesseract_paths = {
+        "Windows": [
+            "C:\\Program Files\\Tesseract-OCR\\tesseract.exe",
+            "C:\\Program Files (x86)\\Tesseract-OCR\\tesseract.exe"
+        ],
+        "Darwin": [
+            "/opt/homebrew/bin/tesseract",
+            "/usr/local/bin/tesseract"
+        ],
+        "Linux": [
+            "/usr/bin/tesseract",
+            "/usr/local/bin/tesseract"
+        ]
+    }
+    
+    system = platform.system()
+    found = False
+    
+    # Check common paths
+    if system in tesseract_paths:
+        for path in tesseract_paths[system]:
+            if Path(path).exists():
+                print(f"   ✅ Tesseract found at: {path}")
+                found = True
+                break
+    
+    # Check if tesseract is in PATH
+    if not found:
+        try:
+            result = subprocess.run(["tesseract", "--version"], 
+                                  capture_output=True, text=True)
+            if result.returncode == 0:
+                print("   ✅ Tesseract found in system PATH")
+                found = True
+        except FileNotFoundError:
+            pass
+    
+    if not found:
+        print("   ⚠️  Tesseract OCR not found. Please install it:")
+        if system == "Windows":
+            print("      📥 Download from: https://github.com/UB-Mannheim/tesseract/wiki")
+        elif system == "Darwin":
+            print("      🍺 Run: brew install tesseract")
+        else:
+            print("      📦 Run: sudo apt-get install tesseract-ocr")
+        return False
+    
+    return True
+
+def check_api_keys():
+    """Check if API keys are configured"""
+    print("\n🔑 Checking API key configuration...")
+    
+    secrets_file = Path("config/secrets.toml")
+    if secrets_file.exists():
+        content = secrets_file.read_text()
+        
+        # Check for placeholder values
+        if "YOUR_OPENAI_API_KEY_HERE" in content:
+            print("   ⚠️  OpenAI API key not configured")
+            return False
+        elif "YOUR_AZURE_ENDPOINT_HERE" in content or "YOUR_AZURE_KEY_HERE" in content:
+            print("   ⚠️  Azure API credentials not configured")
+            return False
+        else:
+            print("   ✅ API keys appear to be configured")
+            return True
+    else:
+        print("   ❌ secrets.toml not found")
+        return False
+
+def print_next_steps(api_keys_configured, tesseract_found):
+    """Print next steps for the user"""
+    print("\n" + "=" * 50)
+    print("🎉 Setup completed!")
+    
+    print("\n📋 Next steps:")
+    
+    if not api_keys_configured:
+        print("1. ⚠️  REQUIRED: Edit config/secrets.toml with your API keys:")
+        print("   - OpenAI API key (get from: https://platform.openai.com/api-keys)")
+        print("   - Azure Document Intelligence endpoint and key")
+    
+    if not tesseract_found:
+        print("2. ⚠️  REQUIRED: Install Tesseract OCR (see instructions above)")
+    
+    print("3. 📁 Put your input files (.msg, .xlsx) in: data/input/")
+    print("4. 🚀 Run the workflow:")
+    print("   python main.py --mode all")
+    
+    print("\n💡 Additional commands:")
+    print("   python main.py --mode range 20240501 20240501  # Process specific date")
+    print("   python concat_tables.py                         # Combine table results")
+    print("   python concat_highlights.py                     # Combine highlights")
+    
+    print("\n✨ You're ready to process documents!")
 
 def main():
-    """Main setup function."""
-    print("🚀 AI Document Processing Workflow Setup")
-    print("=" * 50)
+    """Main setup function"""
+    print_header()
     
-    success = True
-    
-    # Check prerequisites
-    if not check_python_version():
-        success = False
-    
-    if not check_git():
-        print("   Warning: Git recommended for version control")
-    
-    # Setup environment
-    if not setup_virtual_environment():
-        success = False
-    
-    if not install_dependencies():
-        success = False
-    
-    # Check external dependencies
-    if not check_tesseract():
-        print("   Warning: Tesseract required for MSG processing")
-    
-    # Setup project files
-    setup_config_files()
+    # Run setup steps
     create_directories()
+    venv_success = setup_virtual_environment()
+    setup_config()
+    tesseract_found = check_tesseract()
+    api_keys_configured = check_api_keys()
     
-    print("\n" + "=" * 50)
-    if success:
-        print("🎉 Setup completed successfully!")
-        print("\n📋 Next steps:")
-        print("1. Edit secrets.toml with your API keys")
-        print("2. Customize config.json if needed")
-        print("3. Place files in ../input/ directory")
-        print("4. Run: python main_workflow.py --mode all")
+    # Print results
+    print_next_steps(api_keys_configured, tesseract_found)
+    
+    # Final status
+    if venv_success and tesseract_found and api_keys_configured:
+        print("\n🎯 Status: READY TO RUN! 🚀")
     else:
-        print("❌ Setup completed with errors")
-        print("   Please resolve the issues above before proceeding")
-    
-    return success
+        print("\n⚠️  Status: Please complete the steps above before running")
 
 if __name__ == "__main__":
     main() 

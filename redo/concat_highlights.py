@@ -7,7 +7,7 @@ Concatenates all highlights CSV files in the output directory and sorts by date.
 import os
 import pandas as pd
 import glob
-from config_manager import ConfigManager
+from src.utils.config_manager import ConfigManager
 
 def concatenate_highlights():
     """

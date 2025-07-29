@@ -11,14 +11,14 @@ from typing import Dict, Any
 from langgraph.graph import StateGraph, END
 
 # Import modular components
-from file_type_classifier import FileTypeClassifierNode
-from excel_workflow import ExcelWorkflowNode
-from msg_workflow import MsgWorkflowNode
-from validation_node import ValidationNode
-from config_manager import config_manager
-from llm_client import real_llm_func, real_llm_vision_func
-from file_manager import get_file_manager
-from workflow_logger import get_workflow_logger
+from src.utils.file_type_classifier import FileTypeClassifierNode
+from src.workflows.excel_workflow import ExcelWorkflowNode
+from src.workflows.msg_workflow import MsgWorkflowNode
+from src.nodes.validation_node import ValidationNode
+from src.utils.config_manager import config_manager
+from src.utils.llm_client import real_llm_func, real_llm_vision_func
+from src.utils.file_manager import get_file_manager
+from src.utils.workflow_logger import WorkflowLogger
 
 
 class DocumentProcessingWorkflow:
@@ -30,7 +30,7 @@ class DocumentProcessingWorkflow:
     def __init__(self):
         """Initialize the workflow with all nodes."""
         self.graph = StateGraph(dict)
-        self.logger = get_workflow_logger()
+        self.logger = WorkflowLogger()
         
         # Initialize workflow nodes
         self._setup_nodes()
@@ -125,7 +125,7 @@ class DocumentProcessingWorkflow:
             
         except Exception as e:
             print(f"❌ Workflow error: {e}")
-            self.logger.log_error(file_path, str(e), "workflow")
+            self.logger.log_error(str(e), f"workflow processing file: {file_path}")
             raise
     
     def _display_results(self, result: Dict[str, Any]):
@@ -187,7 +187,7 @@ class WorkflowManager:
         """
         self.file_manager = get_file_manager(input_dir)
         self.workflow = DocumentProcessingWorkflow()
-        self.logger = get_workflow_logger()
+        self.logger = WorkflowLogger()
     
     def process_all(self):
         """Process all files in input directory."""
@@ -211,7 +211,12 @@ class WorkflowManager:
                 failed += 1
         
         # Log summary
-        self.logger.log_summary(len(files), successful, failed)
+        self.logger.log_summary({
+            "Total Files": len(files),
+            "Successful": successful,
+            "Failed": failed,
+            "Mode": "all"
+        })
         print(f"\n📊 Summary: {len(files)} total, {successful} successful, {failed} failed")
     
     def process_by_date(self, date_code: str):
@@ -229,11 +234,26 @@ class WorkflowManager:
         
         print(f"Processing files for date {date_code}: {[os.path.basename(f) for f in files]}")
         
+        successful = 0
+        failed = 0
+        
         for file_path in files:
             try:
                 self.workflow.process_file(file_path)
+                successful += 1
             except Exception as e:
                 print(f"Failed to process {file_path}: {e}")
+                self.logger.log_error(str(e), f"processing file by date {date_code}: {file_path}")
+                failed += 1
+        
+        # Log summary
+        self.logger.log_summary({
+            "Total Files": len(files),
+            "Successful": successful,
+            "Failed": failed,
+            "Mode": f"date ({date_code})"
+        })
+        print(f"\n📊 Summary: {len(files)} total, {successful} successful, {failed} failed")
     
     def process_by_date_range(self, start_date: str, end_date: str):
         """
@@ -251,11 +271,26 @@ class WorkflowManager:
         
         print(f"Processing files in date range {start_date} to {end_date}: {[os.path.basename(f) for f in files]}")
         
+        successful = 0
+        failed = 0
+        
         for file_path in files:
             try:
                 self.workflow.process_file(file_path)
+                successful += 1
             except Exception as e:
                 print(f"Failed to process {file_path}: {e}")
+                self.logger.log_error(str(e), f"processing file by date range {start_date}-{end_date}: {file_path}")
+                failed += 1
+        
+        # Log summary
+        self.logger.log_summary({
+            "Total Files": len(files),
+            "Successful": successful,
+            "Failed": failed,
+            "Mode": f"range ({start_date} to {end_date})"
+        })
+        print(f"\n📊 Summary: {len(files)} total, {successful} successful, {failed} failed")
     
     def process_unprocessed(self, processed_log_file: str = None):
         """
@@ -275,11 +310,26 @@ class WorkflowManager:
         
         print(f"Processing UNPROCESSED files: {[os.path.basename(f) for f in files]}")
         
+        successful = 0
+        failed = 0
+        
         for file_path in files:
             try:
                 self.workflow.process_file(file_path)
+                successful += 1
             except Exception as e:
                 print(f"Failed to process {file_path}: {e}")
+                self.logger.log_error(str(e), f"processing unprocessed file: {file_path}")
+                failed += 1
+        
+        # Log summary
+        self.logger.log_summary({
+            "Total Files": len(files),
+            "Successful": successful,
+            "Failed": failed,
+            "Mode": "unprocessed"
+        })
+        print(f"\n📊 Summary: {len(files)} total, {successful} successful, {failed} failed")
     
     def get_stats(self):
         """Display file statistics."""
