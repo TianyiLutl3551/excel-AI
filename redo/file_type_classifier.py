@@ -2,7 +2,7 @@ import os
 import json
 
 class FileTypeClassifierNode:
-    def __init__(self, config_path="/Users/lutianyi/Desktop/excel AI/redo/config.json"):
+    def __init__(self, config_path="config.json"):
         with open(config_path, "r") as f:
             config = json.load(f)
         # 统一小写，去空格

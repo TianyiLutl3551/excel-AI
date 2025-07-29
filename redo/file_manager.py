@@ -248,7 +248,7 @@ def get_file_manager(input_dir: str = None) -> FileManager:
             from config_manager import config_manager
             default_input_dir = config_manager.get_input_dir()
         except ImportError:
-            default_input_dir = "/Users/lutianyi/Desktop/excel AI/input"
+            default_input_dir = "../input"
         
         _file_manager = FileManager(input_dir or default_input_dir)
     

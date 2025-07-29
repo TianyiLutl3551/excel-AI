@@ -10,7 +10,7 @@ from azure.ai.documentintelligence import DocumentIntelligenceClient
 from azure.ai.documentintelligence.models import AnalyzeDocumentRequest
 import pandas as pd
 
-pytesseract.pytesseract.tesseract_cmd = "/opt/homebrew/bin/tesseract"
+# Tesseract OCR setup - now handled by ConfigManager
 
 # Azure Document Intelligence config (loaded from config manager)
 from config_manager import ConfigManager
@@ -20,9 +20,14 @@ class MsgProcessor:
         # Load configuration
         self.config_manager = ConfigManager()
         
+        # Setup Tesseract
+        import pytesseract
+        pytesseract.pytesseract.tesseract_cmd = self.config_manager.get_tesseract_cmd()
+        
         # Load Azure settings from config
-        self.azure_endpoint = self.config_manager.get_azure_endpoint()
-        self.azure_key = self.config_manager.get_azure_key()
+        azure_config = self.config_manager.get_azure_config()
+        self.azure_endpoint = azure_config.get("endpoint", "")
+        self.azure_key = azure_config.get("key", "")
         self.azure_model = "prebuilt-layout"
         
         # Initialize Azure client

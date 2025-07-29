@@ -8,7 +8,7 @@ from excel_processor import ExcelProcessor
 from excel_prompts import get_llm_prompt
 
 class ExcelWorkflowNode:
-    def __init__(self, config_path="/Users/lutianyi/Desktop/excel AI/redo/config.json", secrets_path="/Users/lutianyi/Desktop/excel AI/redo/secrets.toml"):
+    def __init__(self, config_path="config.json", secrets_path="secrets.toml"):
         # Load configuration
         with open(config_path, "r") as f:
             self.config = json.load(f)

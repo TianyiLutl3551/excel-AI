@@ -13,7 +13,7 @@ from prompt2 import get_llm_prompt2 as get_red_llm_prompt
 class MsgWorkflowNode:
     def __init__(self, llm_vision_func, llm_func, output_dir=None):
         import json
-        config_path = "/Users/lutianyi/Desktop/excel AI/redo/config.json"
+        config_path = "config.json"
         if output_dir is None:
             with open(config_path, "r") as f:
                 config = json.load(f)

@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
 """
-Highlights CSV Concatenation Script
+Concatenation utility for highlights data.
 Concatenates all highlights CSV files in the output directory and sorts by date.
 """
 
 import os
 import pandas as pd
 import glob
-from datetime import datetime
+from config_manager import ConfigManager
 
-def main():
-    """Main function to concatenate all highlights CSV files."""
-    
-    # Configuration
-    output_dir = "output"
+def concatenate_highlights():
+    """
+    Concatenate all highlights CSV files into a single file, sorted by date.
+    """
+    # Load configuration
+    config_manager = ConfigManager()
+    output_dir = config_manager.get_output_dir()
     output_file = "combined_all_highlights.csv"
     
     print("🔄 Starting highlights CSV concatenation process...")
@@ -134,4 +136,4 @@ def main():
     print("🎉 Highlights concatenation completed!")
 
 if __name__ == "__main__":
-    main() 
+    concatenate_highlights() 

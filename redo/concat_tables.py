@@ -1,20 +1,22 @@
 #!/usr/bin/env python3
 """
-CSV Table Concatenation Script
+Concatenation utility for table data.
 Concatenates all table CSV files in the output directory, preserves row order within each table,
-and sorts the final result by VALUATION_DATE.
+and sorts all data by VALUATION_DATE for chronological analysis.
 """
 
 import os
 import pandas as pd
 import glob
-from datetime import datetime
+from config_manager import ConfigManager
 
-def main():
-    """Main function to concatenate all table CSV files."""
-    
-    # Configuration
-    output_dir = "output"
+def concatenate_tables():
+    """
+    Concatenate all table CSV files into a single file, sorted by VALUATION_DATE.
+    """
+    # Load configuration
+    config_manager = ConfigManager()
+    output_dir = config_manager.get_output_dir()
     output_file = "combined_all_tables.csv"
     
     print("🔄 Starting CSV concatenation process...")
@@ -118,4 +120,4 @@ def main():
     print("🎉 Concatenation completed!")
 
 if __name__ == "__main__":
-    main() 
+    concatenate_tables() 

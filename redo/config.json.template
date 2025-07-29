@@ -1,39 +1,26 @@
 {
-  "file_processing": {
-    "supported_extensions": [".xlsx", ".xls", ".msg"],
-    "default_sheets": ["WB", "DBIB"],
-    "decimal_precision": 6
-  },
-  "paths": {
-    "input_dir": "../input",
-    "output_dir": "output",
-    "process_log_file": "output/process_log.txt",
-    "validation_log_file": "output/validation_log.txt"
-  },
-  "output_patterns": {
-    "combined_excel": "combined_llm_output_{basename}.csv",
-    "highlights": "highlights_{date}.csv",
-    "table": "table_{basename}.csv"
-  },
-  "business_logic": {
-    "risk_types": [
-      "Equity", "Interest_Rate", "Credit", "Fund_Basis_Fund_Mapping",
-      "Passage_Of_Time", "Other_Inforce", "New_Business", "Cross_Impact_True_up"
-    ],
-    "product_types": ["WB", "DBIB"],
-    "date_format": "YYYYMMDD"
-  },
-  "platform": {
-    "tesseract_cmd": ""
-  },
-  "validation": {
-    "hash_algorithm": "SHA-256",
-    "retry_attempts": 2,
-    "timeout_seconds": 30
-  },
-  "ai_models": {
-    "max_tokens": 4000,
-    "temperature": 0.1,
-    "timeout": 60
-  }
+    "paths": {
+        "input_dir": "../input",
+        "output_dir": "output",
+        "tesseract_cmd": null
+    },
+    "logging": {
+        "process_log_file": "output/process_log.txt",
+        "validation_log_file": "output/validation_log.txt",
+        "error_log_file": "output/error_log.txt",
+        "summary_log_file": "output/summary_log.txt"
+    },
+    "processing": {
+        "supported_extensions": [".xlsx", ".xls", ".msg"],
+        "azure_model": "prebuilt-layout",
+        "validation_enabled": true
+    },
+    "system": {
+        "auto_detect_tesseract": true,
+        "platform_specific_paths": {
+            "windows_tesseract": "C:\\Program Files\\Tesseract-OCR\\tesseract.exe",
+            "darwin_tesseract": "/opt/homebrew/bin/tesseract",
+            "linux_tesseract": "/usr/bin/tesseract"
+        }
+    }
 } 

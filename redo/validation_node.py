@@ -5,7 +5,7 @@ import os
 from datetime import datetime
 
 class ValidationNode:
-    def __init__(self, log_path="/Users/lutianyi/Desktop/excel AI/redo/output/validation_log.txt"):
+    def __init__(self, log_path="output/validation_log.txt"):
         self.log_path = log_path
         # Ensure the directory exists
         os.makedirs(os.path.dirname(self.log_path), exist_ok=True)
