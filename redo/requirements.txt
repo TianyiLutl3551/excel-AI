@@ -3,16 +3,16 @@ openai>=1.0.0
 langgraph>=0.2.0
 langchain>=0.2.0
 
-# Data Processing and Analysis - PINNED COMPATIBLE VERSIONS
-pandas==2.0.3
-numpy==1.26.4
+# Data Processing and Analysis - UPDATED COMPATIBLE VERSIONS
+pandas>=2.2.2,<2.4.0
+numpy>=1.26.4,<2.1.0
 openpyxl>=3.1.0
 xlrd>=2.0.0
 
-# Image Processing and OCR - PINNED COMPATIBLE VERSIONS  
+# Image Processing and OCR - COMPATIBLE VERSIONS  
 Pillow>=10.0.0
 pytesseract>=0.3.10
-opencv-python==4.9.0.80
+opencv-python>=4.9.0.80,<4.11.0
 
 # Azure Services
 azure-core>=1.29.0
@@ -44,4 +44,4 @@ python-dateutil>=2.8.0
 pathlib2>=2.3.0
 
 # For Windows compatibility
-pywin32>=306; sys_platform == "win32" 
+pywin32>=306; sys_platform == "win32"
