@@ -73,4 +73,3 @@ llm_data.py
 llm_main.py
 msg_file_process.py
 process_record.txt
-prompt.py
